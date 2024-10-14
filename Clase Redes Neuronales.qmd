@@ -1,0 +1,235 @@
+---
+title: "Redes Neuronales"
+author: "Docente: Carlos Correa Iñiguez 
+  (<c.correainiguez@uandresbello.edu>)"
+format: 
+  revealjs:
+    theme: simple 
+    css: unab.css
+---
+
+## Objetivos de la clase
+
+- Comprender la estructura básica de una red neuronal y cómo procesa información a través de las capas y funciones de activación.
+- Entender el proceso de entrenamiento de redes neuronales mediante aprendizaje supervisado y retropropagación.
+- Conocer aplicaciones comunes de las redes neuronales y familiarizarse con herramientas básicas para su implementación.
+
+---
+
+## Historia de las Redes Neuronales
+
+- En el siguiente video veremos un resumen de la historia de las redes neuronales:
+    - [Historia de las redes neuronales](https://www.youtube.com/watch?v=faiDJ1cCH7Q)
+- Aprenderemos sobre:
+  - El origen y evolución de las redes neuronales.
+  - Los principales hitos en su desarrollo.
+  - Cómo las redes neuronales se aplican hoy en día.
+
+---
+
+## Funcionamiento del Sistema Visual Humano
+
+- El sistema visual humano es una obra maestra de la evolución, compuesto por millones de neuronas interconectadas en áreas especializadas de la corteza visual (V1, V2, V3, V4 y V5).
+- Este sistema procesa imágenes de manera rápida y eficaz, manejando gran cantidad de información de forma inconsciente.
+
+---
+
+## Reconocimiento de Dígitos Escritos a Mano
+
+- Para los humanos, reconocer dígitos escritos a mano parece una tarea sencilla.
+- Sin embargo, replicar esta habilidad en un programa informático es un desafío considerable debido a la gran diversidad y variaciones en las formas de los dígitos, lo que genera numerosas excepciones.
+
+![Números escritos a mano](Imagen1.png)
+
+---
+
+## Redes Neuronales y Reconocimiento de Dígitos
+
+- Las redes neuronales abordan el problema del reconocimiento de dígitos de manera innovadora: aprenden a reconocer los dígitos escritos a mano a partir de ejemplos de entrenamiento, en lugar de seguir reglas explícitas para cada forma.
+- A medida que se incrementa el número de ejemplos de entrenamiento, el rendimiento de la red mejora, permitiendo reconocer patrones con mayor precisión.
+
+---
+
+## Ejemplo Visual
+
+- Para los humanos, reconocer dígitos escritos a mano parece una tarea sencilla.
+- Sin embargo, replicar esta habilidad en un programa informático es un desafío considerable debido a la gran diversidad y variaciones en las formas de los dígitos, lo que genera numerosas excepciones.
+
+![Ejemplo de Red Neuronal](Imagen2.png)
+
+---
+
+## ¿Qué es una Red Neuronal?
+
+- Conjunto de neuronas artificiales interconectadas.
+- Simula el funcionamiento de las neuronas biológicas.
+
+![Ejemplo de Red Neuronal](Imagen3.png){width="60%"}
+
+---
+
+## El Perceptrón
+
+- Desarrollado por **Frank Rosenblatt** en las décadas de 1950 y 1960.
+- Inspirado por **Warren McCulloch** y **Walter Pitts**.
+- Toma entradas binarias y genera una salida binaria.
+
+![Ejemplo de Red Neuronal](Imagen4.png)
+
+---
+
+## Funcionamiento de un Perceptrón
+
+1. Toma varias entradas $(X_1, X_2, \dots)$.
+2. Genera una única salida binaria.
+
+$$
+\sum_j w_j x_j > \text{Umbral}
+$$
+
+---
+
+## Función de Activación
+
+- La salida de la función de activación puede definirse de la siguiente manera:
+$$
+\text{output} = 
+\begin{cases} 
+0 & \text{si } w \cdot x + b \leq 0 \\
+1 & \text{si } w \cdot x + b > 0
+\end{cases}
+$$
+- **b**: Sesgo, ajusta el umbral de activación del perceptrón.
+- **w**: Pesos, determinan la importancia de cada entrada.
+- **x**: Valores de entrada al perceptrón.
+
+---
+
+## Ejemplo 1: Decisión de asistir a un festival
+
+![Ejemplo de funcionamiento de pesos](Lollapalooza)
+
+---
+
+## Ejemplo 2: Implementación de Puerta NAND con un Perceptrón
+
+- Los perceptrones pueden calcular funciones lógicas elementales, como AND, OR, y NAND.
+- Supongamos que tenemos un perceptrón con dos entradas, cada una con un peso de -2, y un sesgo de 3:
+
+![Ejemplo de Red Neuronal](Imagen6.png)
+
+---
+
+### Resultado: Implementación de Puerta NAND con un Perceptrón
+
+- Para la entrada \(0 0\) la salida es \(1\):
+
+$$
+(-2) \cdot 0 + (-2) \cdot 0 + 3 = 3
+$$
+
+- Para la entrada \(1 1\), la salida es \(0\):
+
+$$
+(-2) \cdot 1 + (-2) \cdot 1 + 3 = -1
+$$
+
+---
+
+## ¿Qué es Backpropagation?
+
+- **Backpropagation** (retropropagación del error) es un algoritmo clave para entrenar redes neuronales multicapa.
+- Ajusta los pesos de la red a partir del error entre la predicción y el valor esperado.
+
+---
+
+## Etapas de Backpropagation
+
+1. **Forward Propagation**: Las entradas se procesan en la red para generar predicciones.
+2. **Cálculo del Error**: Se mide la diferencia entre la salida predicha y la verdadera usando una función de pérdida.
+3. **Backward Propagation**: El error se propaga hacia atrás para ajustar los pesos.
+
+---
+
+## Ajuste de Pesos en una Red Neuronal
+
+- Cada neurona realiza una suma ponderada de sus entradas:
+$$
+z = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b
+$$
+- La salida de la neurona se obtiene aplicando una función de activación:
+$$
+y = f(z)
+$$
+
+---
+
+## Función de Pérdida y el Gradiente
+
+- La función de pérdida mide qué tan lejos está la predicción de la salida correcta:
+$$
+L = \frac{1}{2} (y_{\text{pred}} - y_{\text{real}})^2
+$$
+- Los pesos se ajustan utilizando el descenso de gradiente:
+$$
+w_i(t+1) = w_i(t) - \eta \frac{\partial L}{\partial w_i}
+$$
+
+---
+
+## Ecuación Diferencial en Backpropagation
+
+- El ajuste de los pesos sigue una ecuación diferencial:
+$$
+\frac{d w_i}{d t} = - \frac{\partial L}{\partial w_i}
+$$
+
+---
+
+## Ciclo Completo de Backpropagation
+
+1. **Forward Propagation**: Se calcula la salida.
+2. **Cálculo del Error**: Se mide el error entre la salida predicha y la real.
+3. **Backward Propagation**: Se ajustan los pesos propagando el error hacia atrás.
+4. **Actualización de Pesos**: Los pesos se ajustan utilizando el gradiente de la función de pérdida.
+
+---
+
+## ¿Por qué es Importante Backpropagation?
+
+- Permite a las redes neuronales aprender de los datos y mejorar sus predicciones.
+- Optimiza los pesos para minimizar el error a través de un proceso iterativo.
+
+---
+
+## Neurona Sigmoide
+
+- Utilizada en la mayoría de los trabajos modernos sobre redes neuronales.
+- Función de activación sigmoide: salida en rango continuo (0, 1).
+
+<aside class="notes">
+Explicar la importancia de las funciones de activación en redes neuronales profundas.
+</aside>
+
+---
+
+## Comparación entre Perceptrón y Neurona Sigmoide
+
+| **Característica**   | **Perceptrón**            | **Neurona Sigmoide**       |
+|----------------------|---------------------------|----------------------------|
+| Salida               | Binaria (0 o 1)           | Continua (0 a 1)            |
+| Función de activación | No tiene                  | Sí, función sigmoide        |
+| Entrada               | Binaria                   | Entrada numérica continua   |
+
+<aside class="notes">
+Es importante entender las diferencias clave para saber cuándo usar cada uno.
+</aside>
+
+## Referencias
+
+1. **EMC Education Services** (2015). *Data Science and Big Data Analytics: Discovering, Analyzing, Visualizing and Presenting Data*, 1st Edition, John Wiley & Sons.
+2. **Michael A. Nielsen** (2015). *Neural Networks and Deep Learning*. Available online at [http://neuralnetworksanddeeplearning.com/](http://neuralnetworksanddeeplearning.com/).
+
+<aside class="notes">
+Estas referencias son útiles para profundizar en el tema de redes neuronales y su aplicación en el análisis de datos.
+</aside>

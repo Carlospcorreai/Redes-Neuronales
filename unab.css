@@ -1,0 +1,109 @@
+/* Global Styles */
+.reveal {
+    font-family: 'Arial', sans-serif;
+    font-size: 28px;  /* Base font size for the entire presentation */
+    line-height: 1.8;  /* Line height for better readability */
+    background-color: #f5f5f5;
+    color: #333;
+    background-image: url('logo-unab.png');  /* Add the logo */
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 200px;
+}
+
+/* Header Styles */
+.reveal h1, .reveal h2, .reveal h3 {
+    color: #00467f;  /* Dark blue */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.reveal h1 {
+    font-size: 60px;  /* Increase size for H1 */
+}
+
+.reveal h2 {
+    font-size: 48px;  /* Increase size for H2 */
+}
+
+.reveal h3 {
+    font-size: 40px;  /* Increase size for H3 */
+}
+
+/* Bullet Points */
+.reveal ul {
+    margin-top: 20px;   /* Adjust top margin of the list */
+    margin-bottom: 20px;  /* Adjust bottom margin of the list */
+    padding-left: 30px;  /* Indent the bullet points */
+    line-height: 1.8;    /* Line spacing within bullet points */
+}
+
+.reveal ul li {
+    margin-bottom: 20px;  /* Space between bullet points */
+    font-size: 28px;  /* Font size for bullet points */
+}
+
+/* Highlight important text */
+.reveal em {
+    color: #d9534f;  /* Red for emphasis */
+    font-weight: bold;
+    font-size: 28px;
+}
+
+/* Blockquotes */
+.reveal blockquote {
+    border-left: 5px solid #00467f;
+    padding-left: 15px;
+    font-style: italic;
+    color: #666;
+    font-size: 30px;
+}
+
+/* Slide Footer */
+.reveal .footer {
+    font-size: 22px;  /* Adjust footer font size */
+    color: #666;
+    text-align: right;
+    margin-top: 30px;
+}
+
+/* Images */
+.reveal img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tables */
+.reveal table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.reveal table th, .reveal table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.reveal table th {
+    background-color: #00467f;
+    color: white;
+    font-size: 28px;  /* Font size for table headers */
+}
+
+.reveal table td {
+    font-size: 24px;  /* Font size for table content */
+}
+
+/* Buttons (Optional for Quizzes/Interaction) */
+.reveal .button {
+    background-color: #00467f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 22px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
