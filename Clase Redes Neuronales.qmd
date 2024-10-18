@@ -6,6 +6,8 @@ format:
   revealjs:
     theme: simple 
     css: unab.css
+output: html
+output-file: index.html
 ---
 
 # Objetivos de la Clase

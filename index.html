@@ -338,34 +338,38 @@ Docente: Carlos Correa Iñiguez (<a href="mailto:c.correainiguez@uandresbello.ed
 </div>
 
 </section>
-<section id="objetivos-de-la-clase" class="slide level2">
-<h2>Objetivos de la clase</h2>
+<section>
+<section id="objetivos-de-la-clase" class="title-slide slide level1 center">
+<h1>Objetivos de la Clase</h1>
 <ul>
 <li>Comprender la estructura básica de una red neuronal y cómo procesa información a través de las capas y funciones de activación.</li>
 <li>Entender el proceso de entrenamiento de redes neuronales mediante aprendizaje supervisado y retropropagación.</li>
-<li>Conocer aplicaciones comunes de las redes neuronales y familiarizarse con herramientas básicas para su implementación.</li>
+<li>Conocer aplicaciones actuales de las redes neuronales y familiarizarse con herramientas básicas para su implementación.</li>
 </ul>
 </section>
 <section id="historia-de-las-redes-neuronales" class="slide level2">
 <h2>Historia de las Redes Neuronales</h2>
 <ul>
-<li>En el siguiente video veremos un resumen de la historia de las redes neuronales:
+<li><p><strong>Origen y evolución</strong>: Desde los modelos iniciales en los años 50 hasta las redes profundas actuales.</p></li>
+<li><p><strong>Principales hitos</strong>:</p>
+<ul>
+<li><strong>1958</strong>: Perceptrón de Frank Rosenblatt.</li>
+<li><strong>1986</strong>: Popularización del algoritmo de retropropagación.</li>
+<li><strong>2012</strong>: AlexNet gana ImageNet, marcando el auge del deep learning.</li>
+</ul></li>
+<li><p><strong>Aplicaciones modernas</strong>: Visión por computadora, procesamiento del lenguaje natural, vehículos autónomos, entre otros.</p></li>
+<li><p>En el siguiente video veremos un resumen de la historia de las redes neuronales:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=faiDJ1cCH7Q">Historia de las redes neuronales</a></li>
-</ul></li>
-<li>Aprenderemos sobre:
-<ul>
-<li>El origen y evolución de las redes neuronales.</li>
-<li>Los principales hitos en su desarrollo.</li>
-<li>Cómo las redes neuronales se aplican hoy en día.</li>
 </ul></li>
 </ul>
 </section>
 <section id="funcionamiento-del-sistema-visual-humano" class="slide level2">
 <h2>Funcionamiento del Sistema Visual Humano</h2>
 <ul>
-<li>El sistema visual humano es una obra maestra de la evolución, compuesto por millones de neuronas interconectadas en áreas especializadas de la corteza visual (V1, V2, V3, V4 y V5).</li>
-<li>Este sistema procesa imágenes de manera rápida y eficaz, manejando gran cantidad de información de forma inconsciente.</li>
+<li>Compuesto por millones de neuronas interconectadas en áreas especializadas de la corteza visual (V1, V2, V3, V4 y V5).</li>
+<li>Procesa imágenes de manera rápida y eficaz, manejando gran cantidad de información de forma inconsciente.</li>
+<li>Inspira la arquitectura de redes neuronales convolucionales utilizadas en visión por computadora.</li>
 </ul>
 </section>
 <section id="reconocimiento-de-dígitos-escritos-a-mano" class="slide level2">
@@ -394,20 +398,33 @@ Docente: Carlos Correa Iñiguez (<a href="mailto:c.correainiguez@uandresbello.ed
 <section id="qué-es-una-red-neuronal" class="slide level2">
 <h2>¿Qué es una Red Neuronal?</h2>
 <ul>
-<li>Conjunto de neuronas artificiales interconectadas.</li>
-<li>Simula el funcionamiento de las neuronas biológicas.</li>
+<li><strong>Definición</strong>: Conjunto de neuronas artificiales interconectadas que simulan el funcionamiento de las neuronas biológicas.</li>
+<li><strong>Componentes clave</strong>:
+<ul>
+<li><strong>Neuronas (nodos)</strong>: Procesan la información.</li>
+<li><strong>Pesos</strong>: Determinan la importancia de cada señal de entrada.</li>
+<li><strong>Funciones de activación</strong>: Deciden si una neurona debe activarse.</li>
+</ul></li>
 </ul>
+
+<img data-src="Imagen3.png" style="width:60.0%" class="r-stretch quarto-figure-center"><p class="caption">Ejemplo de Red Neuronal</p></section>
+<section class="slide level2">
+
 
 <img data-src="Imagen3.png" style="width:60.0%" class="r-stretch quarto-figure-center"><p class="caption">Ejemplo de Red Neuronal</p></section>
 <section id="el-perceptrón" class="slide level2">
 <h2>El Perceptrón</h2>
 <ul>
-<li>Desarrollado por <strong>Frank Rosenblatt</strong> en las décadas de 1950 y 1960.</li>
-<li>Inspirado por <strong>Warren McCulloch</strong> y <strong>Walter Pitts</strong>.</li>
-<li>Toma entradas binarias y genera una salida binaria.</li>
+<li><strong>Desarrollado por</strong>: Frank Rosenblatt en los años 50 y 60.</li>
+<li><strong>Inspirado en</strong>: Trabajos de Warren McCulloch y Walter Pitts.</li>
+<li><strong>Características</strong>:
+<ul>
+<li>Toma entradas binarias y produce una salida binaria.</li>
+<li>Es el modelo más simple de una red neuronal.</li>
+</ul></li>
 </ul>
 
-<img data-src="Imagen4.png" class="r-stretch quarto-figure-center"><p class="caption">Ejemplo de Red Neuronal</p></section>
+<img data-src="Imagen4.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura del Perceptrón</p></section>
 <section id="funcionamiento-de-un-perceptrón" class="slide level2">
 <h2>Funcionamiento de un Perceptrón</h2>
 <ol type="1">
@@ -461,19 +478,232 @@ Docente: Carlos Correa Iñiguez (<a href="mailto:c.correainiguez@uandresbello.ed
 (-2) \cdot 1 + (-2) \cdot 1 + 3 = -1
 \]</span></p>
 </section>
-<section id="qué-es-backpropagation" class="slide level2">
-<h2>¿Qué es Backpropagation?</h2>
+<section id="neurona-sigmoide---problema-de-clasificación-errónea" class="slide level2">
+<h2>Neurona Sigmoide - Problema de Clasificación Errónea</h2>
 <ul>
-<li><strong>Backpropagation</strong> (retropropagación del error) es un algoritmo clave para entrenar redes neuronales multicapa.</li>
-<li>Ajusta los pesos de la red a partir del error entre la predicción y el valor esperado.</li>
+<li><p>Por ejemplo, supongamos que la red estaba clasificando erróneamente una imagen como un “8” cuando debería ser un “9”.</p></li>
+<li><p>Podríamos averiguar cómo hacer un pequeño cambio en los pesos y sesgos para que la red se acerque un poco más a clasificar la imagen como un “9”.</p></li>
+<li><p>Y luego repetiríamos esto, cambiando los pesos y sesgos una y otra vez para producir una mejor producción. La red estaría aprendiendo.</p></li>
+</ul>
+
+<img data-src="Imagen8.png" class="r-stretch quarto-figure-center"><p class="caption">Diagrama del Ejemplo</p></section>
+<section id="neurona-sigmoide---cambios-en-los-pesos" class="slide level2">
+<h2>Neurona Sigmoide - Cambios en los Pesos</h2>
+<p>El problema es que esto no es lo que sucede cuando nuestra red contiene perceptrones.</p>
+<ul>
+<li><p>Un pequeño cambio en los pesos o sesgo de cualquier perceptrón individual en la red a veces puede hacer que la salida de ese perceptrón se voltee por completo.</p></li>
+<li><p>Es decir, que la salida puede cambiar de 0 a 1, lo cual afecta significativamente el comportamiento de la red.</p></li>
 </ul>
 </section>
-<section id="etapas-de-backpropagation" class="slide level2">
-<h2>Etapas de Backpropagation</h2>
+<section id="neurona-sigmoide--cambios-drásticos-en-la-red" class="slide level2">
+<h2>Neurona Sigmoide -Cambios Drásticos en la Red</h2>
+<p>Este giro puede hacer que el comportamiento del resto de la red cambie de manera muy complicada.</p>
+<ul>
+<li><p>Aunque ahora el “9” podría clasificarse correctamente, el comportamiento de la red en otras imágenes puede cambiar completamente de manera difícil de controlar.</p></li>
+<li><p>Esto complica la posibilidad de modificar gradualmente los pesos y sesgos para que la red se acerque al comportamiento deseado.</p></li>
+</ul>
+</section>
+<section id="neurona-sigmoide---dificultad-para-aprender" class="slide level2">
+<h2>Neurona Sigmoide - Dificultad para Aprender</h2>
+<p>Tal vez haya alguna manera inteligente de solucionar este problema, pero no es inmediatamente obvio cómo hacer que una red de perceptrones aprenda.</p>
+<ul>
+<li>La dificultad radica en que los cambios en los pesos de una parte de la red pueden afectar de manera impredecible el comportamiento de la red en su totalidad.</li>
+</ul>
+</section>
+<section id="neurona-sigmoide---introducción-de-neuronas-sigmoides" class="slide level2">
+<h2>Neurona Sigmoide - Introducción de Neuronas Sigmoides</h2>
+<p>Podemos superar este problema introduciendo un nuevo tipo de neurona artificial llamada <strong>neurona sigmoide</strong>.</p>
+<ul>
+<li><p>Las neuronas sigmoides permiten un cambio gradual en la salida, en lugar de cambios abruptos como en los perceptrones.</p></li>
+<li><p>Esto facilita el ajuste progresivo de los pesos y sesgos, permitiendo que la red “aprenda” de manera más controlada y eficiente.</p></li>
+<li><p>La clave para que una red neuronal aprenda gradualmente es utilizar neuronas sigmoides, que permiten ajustes suaves en lugar de cambios bruscos.</p></li>
+<li><p>Este enfoque facilita el entrenamiento de la red, permitiendo mejorar la clasificación sin afectar negativamente el comportamiento en otras tareas.</p></li>
+</ul>
+</section>
+<section id="neurona-sigmoide---función-de-activación-sigmoide" class="slide level2">
+<h2>Neurona Sigmoide - Función de Activación Sigmoide</h2>
+<p>La <strong>función sigmoide</strong> es utilizada como función de activación en redes neuronales para permitir que las salidas varíen suavemente entre 0 y 1:</p>
+<p><span class="math display">\[
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\]</span></p>
+<div id="5f4fe0ae" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Clase%20Redes%20Neuronales_files/figure-revealjs/cell-2-output-1.png" width="515" height="377"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="perceptrón" class="slide level2">
+<h2>Perceptrón</h2>
+<p>El <strong>perceptrón</strong> es el modelo más simple de una red neuronal.</p>
+<ul>
+<li><strong>Función de activación</strong>: Función escalón.</li>
+<li><strong>Salida</strong>: Binaria (0 o 1).</li>
+<li><strong>Usos principales</strong>: Clasificación binaria.</li>
+<li><strong>Limitaciones</strong>: No puede resolver problemas no lineales (ej. XOR).</li>
+</ul>
+<p><strong>Arquitectura de un Perceptrón</strong>:</p>
+
+<img data-src="perceptron_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura Perceptrón</p></section>
+<section id="neurona-sigmoide" class="slide level2">
+<h2>Neurona Sigmoide</h2>
+<p>Las <strong>neuronas sigmoides</strong> permiten obtener salidas continuas.</p>
+<ul>
+<li><strong>Función de activación</strong>: <span class="math inline">\(\sigma(z) = \frac{1}{1 + e^{-z}}\)</span></li>
+<li><strong>Salida</strong>: Continua entre 0 y 1.</li>
+<li><strong>Usos principales</strong>: Problemas de clasificación probabilística.</li>
+</ul>
+<p><strong>Arquitectura de una Neurona Sigmoide</strong>:</p>
+
+<img data-src="sigmoid_neuron_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura Neurona Sigmoide</p></section>
+<section id="relu-rectificador-lineal-unitario" class="slide level2">
+<h2>ReLU (Rectificador Lineal Unitario)</h2>
+<p>La función <strong>ReLU</strong> es la más utilizada en redes neuronales profundas.</p>
+<ul>
+<li><strong>Función de activación</strong>: <span class="math inline">\(ReLU(z) = max(0, z)\)</span></li>
+<li><strong>Salida</strong>: Continua entre 0 y <span class="math inline">\(\infty\)</span>.</li>
+<li><strong>Usos principales</strong>: Redes profundas y convolucionales.</li>
+</ul>
+<p><strong>Arquitectura de una Red con ReLU</strong>:</p>
+
+<img data-src="relu_network_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura ReLU</p></section>
+<section id="tangente-hiperbólica-tanh" class="slide level2">
+<h2>Tangente Hiperbólica (tanh)</h2>
+<p>La función <strong>tanh</strong> es similar a la sigmoide pero ofrece salidas entre -1 y 1.</p>
+<ul>
+<li><strong>Función de activación</strong>: <span class="math inline">\(tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}\)</span></li>
+<li><strong>Salida</strong>: Continua entre -1 y 1.</li>
+<li><strong>Usos principales</strong>: Redes recurrentes y algunas redes convolucionales.</li>
+</ul>
+<p><strong>Arquitectura de una Red con tanh</strong>:</p>
+
+<img data-src="tanh_network_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura tanh</p></section>
+<section id="redes-neuronales-convolucionales-cnns" class="slide level2">
+<h2>Redes Neuronales Convolucionales (CNNs)</h2>
+<p>Las <strong>redes neuronales convolucionales (CNNs)</strong> son ampliamente utilizadas para problemas de visión por computadora.</p>
+<ul>
+<li><strong>Arquitectura</strong>: Compuesta por capas de convolución, pooling y fully connected.</li>
+<li><strong>Función de activación</strong>: ReLU es la más común.</li>
+<li><strong>Usos principales</strong>: Clasificación de imágenes, detección de objetos.</li>
+</ul>
+<p><strong>Arquitectura de una CNN</strong>:</p>
+
+<img data-src="cnn_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura CNN</p></section>
+<section id="redes-neuronales-recurrentes-rnns" class="slide level2">
+<h2>Redes Neuronales Recurrentes (RNNs)</h2>
+<p>Las <strong>redes neuronales recurrentes (RNNs)</strong> son efectivas para problemas secuenciales.</p>
+<ul>
+<li><strong>Arquitectura</strong>: Los nodos tienen conexiones hacia adelante y hacia atrás, lo que permite tener “memoria”.</li>
+<li><strong>Función de activación</strong>: <strong>tanh</strong> y <strong>sigmoide</strong>.</li>
+<li><strong>Usos principales</strong>: Procesamiento de lenguaje natural, series temporales.</li>
+</ul>
+<p><strong>Arquitectura de una RNN</strong>:</p>
+
+<img data-src="rnn_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura RNN</p></section>
+<section id="redes-de-memoria-a-largo-plazo-lstm" class="slide level2">
+<h2>Redes de Memoria a Largo Plazo (LSTM)</h2>
+<p>Las <strong>LSTM (Long Short-Term Memory)</strong> son un tipo especial de RNN que pueden aprender dependencias a largo plazo.</p>
+<ul>
+<li><strong>Arquitectura</strong>: Incluyen “celdas de memoria” que permiten almacenar información durante largos periodos.</li>
+<li><strong>Función de activación</strong>: <strong>tanh</strong> y <strong>sigmoide</strong>.</li>
+<li><strong>Usos principales</strong>: Análisis de secuencias largas.</li>
+</ul>
+<p><strong>Arquitectura de una LSTM</strong>:</p>
+
+<img data-src="lstm_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura LSTM</p></section>
+<section id="redes-de-retroalimentación-feedback-networks" class="slide level2">
+<h2>Redes de Retroalimentación (Feedback Networks)</h2>
+<p>Estas redes permiten que las salidas de ciertas capas alimenten a las capas anteriores.</p>
+<ul>
+<li><strong>Función de activación</strong>: <strong>sigmoide</strong>, <strong>tanh</strong>, y a veces <strong>ReLU</strong>.</li>
+<li><strong>Usos principales</strong>: Análisis de datos donde las salidas deben influir en las entradas anteriores.</li>
+</ul>
+<p><strong>Arquitectura de una Red de Retroalimentación</strong>:</p>
+
+<img data-src="feedback_network_image.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura Feedback</p></section>
+<section id="comparación-de-redes-neuronales-y-funciones-de-activación" class="slide level2">
+<h2>Comparación de Redes Neuronales y Funciones de Activación</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 14%">
+<col style="width: 23%">
+<col style="width: 24%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Red Neuronal / Función de Activación</strong></th>
+<th><strong>Salida</strong></th>
+<th><strong>Función de Activación</strong></th>
+<th><strong>Usos Principales</strong></th>
+<th><strong>Entrada</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Perceptrón</strong></td>
+<td>Binaria (0 o 1)</td>
+<td>Función escalón</td>
+<td>Clasificación binaria</td>
+<td>Binaria</td>
+</tr>
+<tr class="even">
+<td><strong>Sigmoide</strong></td>
+<td>Continua (0 a 1)</td>
+<td><span class="math inline">\(\sigma(z) = \frac{1}{1 + e^{-z}}\)</span></td>
+<td>Clasificación probabilística</td>
+<td>Numérica continua</td>
+</tr>
+<tr class="odd">
+<td><strong>ReLU (Rectificador Lineal Unitario)</strong></td>
+<td><span class="math inline">\(max(0, z)\)</span></td>
+<td><span class="math inline">\(ReLU(z) = max(0, z)\)</span></td>
+<td>Redes profundas y convolucionales</td>
+<td>Numérica continua</td>
+</tr>
+<tr class="even">
+<td><strong>tanh (Tangente Hiperbólica)</strong></td>
+<td>Continua (-1 a 1)</td>
+<td><span class="math inline">\(tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}\)</span></td>
+<td>Redes recurrentes y algunas convolucionales</td>
+<td>Numérica continua</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+Esta tabla muestra las diferencias entre los tipos de redes neuronales y las funciones de activación que utilizan.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="introducción-al-backpropagation" class="slide level2">
+<h2>Introducción al Backpropagation</h2>
+<p>El algoritmo de <strong>backpropagation</strong> se utiliza para ajustar los pesos de una red neuronal minimizando el error entre la salida esperada y la salida obtenida.</p>
+<h3 id="por-qué-es-importante-backpropagation">¿Por qué es Importante Backpropagation?</h3>
+<ul>
+<li>Permite a las redes neuronales aprender de los datos y mejorar sus predicciones.</li>
+<li>Optimiza los pesos para minimizar el error a través de un proceso iterativo.</li>
+</ul>
+</section>
+<section id="ciclo-completo-de-backpropagation" class="slide level2">
+<h2>Ciclo Completo de Backpropagation</h2>
 <ol type="1">
-<li><strong>Forward Propagation</strong>: Las entradas se procesan en la red para generar predicciones.</li>
-<li><strong>Cálculo del Error</strong>: Se mide la diferencia entre la salida predicha y la verdadera usando una función de pérdida.</li>
-<li><strong>Backward Propagation</strong>: El error se propaga hacia atrás para ajustar los pesos.</li>
+<li><strong>Forward Propagation</strong>: Se calcula la salida.</li>
+<li><strong>Cálculo del Error</strong>: Se mide el error entre la salida predicha y la real.</li>
+<li><strong>Backward Propagation</strong>: Se ajustan los pesos propagando el error hacia atrás.</li>
+<li><strong>Actualización de Pesos</strong>: Los pesos se ajustan utilizando el gradiente de la función de pérdida.</li>
 </ol>
 </section>
 <section id="ajuste-de-pesos-en-una-red-neuronal" class="slide level2">
@@ -505,115 +735,193 @@ w_i(t+1) = w_i(t) - \eta \frac{\partial L}{\partial w_i}
 \frac{d w_i}{d t} = - \frac{\partial L}{\partial w_i}
 \]</span></li>
 </ul>
-</section>
-<section id="ciclo-completo-de-backpropagation" class="slide level2">
-<h2>Ciclo Completo de Backpropagation</h2>
-<ol type="1">
-<li><strong>Forward Propagation</strong>: Se calcula la salida.</li>
-<li><strong>Cálculo del Error</strong>: Se mide el error entre la salida predicha y la real.</li>
-<li><strong>Backward Propagation</strong>: Se ajustan los pesos propagando el error hacia atrás.</li>
-<li><strong>Actualización de Pesos</strong>: Los pesos se ajustan utilizando el gradiente de la función de pérdida.</li>
-</ol>
-</section>
-<section id="por-qué-es-importante-backpropagation" class="slide level2">
-<h2>¿Por qué es Importante Backpropagation?</h2>
+</section></section>
+<section>
+<section id="ejemplo" class="title-slide slide level1 center">
+<h1>Ejemplo</h1>
 <ul>
-<li>Permite a las redes neuronales aprender de los datos y mejorar sus predicciones.</li>
-<li>Optimiza los pesos para minimizar el error a través de un proceso iterativo.</li>
+<li><p>Entrada: <span class="math inline">\(x_1 = 0.5\)</span>, <span class="math inline">\(x_2 = 0.1\)</span></p></li>
+<li><p>Salida esperada: <span class="math inline">\(y_{\text{esperado}} = 1\)</span></p></li>
+<li><p>Pesos iniciales:</p>
+<ul>
+<li><span class="math inline">\(w_{11}^{(1)} = 0.4\)</span>, <span class="math inline">\(w_{12}^{(1)} = 0.2\)</span></li>
+<li><span class="math inline">\(w_{21}^{(1)} = 0.1\)</span>, <span class="math inline">\(w_{22}^{(1)} = 0.3\)</span></li>
+<li><span class="math inline">\(w_1^{(2)} = 0.6\)</span>, <span class="math inline">\(w_2^{(2)} = 0.5\)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>Tasa de aprendizaje: <span class="math inline">\(\eta = 0.1\)</span></li>
 </ul>
 </section>
-<section id="neurona-sigmoide" class="slide level2">
-<h2>Neurona Sigmoide</h2>
-<ul>
-<li>Utilizada en la mayoría de los trabajos modernos sobre redes neuronales.</li>
-<li>Función de activación sigmoide: salida en rango continuo (0, 1).</li>
-</ul>
-<aside class="notes">
-Explicar la importancia de las funciones de activación en redes neuronales profundas.
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<section id="paso-1-forward-propagation" class="slide level2">
+<h2>Paso 1: Forward Propagation</h2>
+<p><strong>Cálculo de las entradas a las neuronas ocultas</strong>:</p>
+<p>Para la neurona oculta 1:</p>
+<p><span class="math display">\[
+z_1 = w_{11}^{(1)} \cdot x_1 + w_{12}^{(1)} \cdot x_2 = (0.4 \cdot 0.5) + (0.2 \cdot 0.1) = 0.22
+\]</span></p>
+<p>Para la neurona oculta 2:</p>
+<p><span class="math display">\[
+z_2 = w_{21}^{(1)} \cdot x_1 + w_{22}^{(1)} \cdot x_2 = (0.1 \cdot 0.5) + (0.3 \cdot 0.1) = 0.08
+\]</span></p>
 </section>
-<section id="comparación-entre-perceptrón-y-neurona-sigmoide" class="slide level2">
-<h2>Comparación entre Perceptrón y Neurona Sigmoide</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 28%">
-<col style="width: 35%">
-<col style="width: 36%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Característica</strong></th>
-<th><strong>Perceptrón</strong></th>
-<th><strong>Neurona Sigmoide</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Salida</td>
-<td>Binaria (0 o 1)</td>
-<td>Continua (0 a 1)</td>
-</tr>
-<tr class="even">
-<td>Función de activación</td>
-<td>No tiene</td>
-<td>Sí, función sigmoide</td>
-</tr>
-<tr class="odd">
-<td>Entrada</td>
-<td>Binaria</td>
-<td>Entrada numérica continua</td>
-</tr>
-</tbody>
-</table>
-<aside class="notes">
-Es importante entender las diferencias clave para saber cuándo usar cada uno.
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<section id="función-de-activación-sigmoide" class="slide level2">
+<h2>Función de Activación Sigmoide</h2>
+<p>Aplicando la función de activación sigmoide a las neuronas ocultas:</p>
+<p>Para la neurona oculta 1:</p>
+<p><span class="math display">\[
+a_1 = \frac{1}{1 + e^{-z_1}} = \frac{1}{1 + e^{-0.22}} \approx 0.554
+\]</span></p>
+<p>Para la neurona oculta 2:</p>
+<p><span class="math display">\[
+a_2 = \frac{1}{1 + e^{-z_2}} = \frac{1}{1 + e^{-0.08}} \approx 0.520
+\]</span></p>
+</section>
+<section id="entrada-a-la-neurona-de-salida" class="slide level2">
+<h2>Entrada a la Neurona de Salida</h2>
+<p><span class="math display">\[
+z_{\text{salida}} = w_1^{(2)} \cdot a_1 + w_2^{(2)} \cdot a_2 = (0.6 \cdot 0.554) + (0.5 \cdot 0.520) \approx 0.612
+\]</span></p>
+<p>Aplicando la función de activación sigmoide a la neurona de salida:</p>
+<p><span class="math display">\[
+a_{\text{salida}} = \frac{1}{1 + e^{-z_{\text{salida}}}} = \frac{1}{1 + e^{-0.612}} \approx 0.648
+\]</span></p>
+</section>
+<section id="paso-2-cálculo-del-error" class="slide level2">
+<h2>Paso 2: Cálculo del Error</h2>
+<p>El error en la salida es:</p>
+<p><span class="math display">\[
+\text{Error} = y_{\text{esperado}} - a_{\text{salida}} = 1 - 0.648 = 0.352
+\]</span></p>
+</section>
+<section id="paso-3-backpropagation" class="slide level2">
+<h2>Paso 3: Backpropagation</h2>
+<h3 id="cálculo-del-gradiente-de-la-neurona-de-salida">Cálculo del gradiente de la neurona de salida:</h3>
+<p>La derivada de la función sigmoide es:</p>
+<p><span class="math display">\[
+\delta_{\text{salida}} = a_{\text{salida}} \cdot (1 - a_{\text{salida}}) \cdot \text{Error} = 0.648 \cdot (1 - 0.648) \cdot 0.352 \approx 0.080
+\]</span></p>
+</section>
+<section id="actualización-de-los-pesos-salida-a-ocultas" class="slide level2">
+<h2>Actualización de los Pesos (Salida a Ocultas)</h2>
+<p>Actualizar los pesos entre las neuronas ocultas y la neurona de salida:</p>
+<p>Para <span class="math inline">\(w_1^{(2)}\)</span>:</p>
+<p><span class="math display">\[
+w_1^{(2)} = w_1^{(2)} + \eta \cdot \delta_{\text{salida}} \cdot a_1 = 0.6 + 0.1 \cdot 0.080 \cdot 0.554 \approx 0.604
+\]</span></p>
+<p>Para <span class="math inline">\(w_2^{(2)}\)</span>:</p>
+<p><span class="math display">\[
+w_2^{(2)} = w_2^{(2)} + \eta \cdot \delta_{\text{salida}} \cdot a_2 = 0.5 + 0.1 \cdot 0.080 \cdot 0.520 \approx 0.504
+\]</span></p>
+</section>
+<section id="actualización-de-los-pesos-entradas-a-ocultas" class="slide level2">
+<h2>Actualización de los Pesos (Entradas a Ocultas)</h2>
+<p>Gradientes de las neuronas ocultas:</p>
+<p>Para la neurona oculta 1:</p>
+<p><span class="math display">\[
+\delta_1 = a_1 \cdot (1 - a_1) \cdot \delta_{\text{salida}} \cdot w_1^{(2)} = 0.554 \cdot (1 - 0.554) \cdot 0.080 \cdot 0.6 \approx 0.011
+\]</span></p>
+<p>Para la neurona oculta 2:</p>
+<p><span class="math display">\[
+\delta_2 = a_2 \cdot (1 - a_2) \cdot \delta_{\text{salida}} \cdot w_2^{(2)} = 0.520 \cdot (1 - 0.520) \cdot 0.080 \cdot 0.5 \approx 0.010
+\]</span></p>
+</section>
+<section id="ajuste-final-de-pesos" class="slide level2">
+<h2>Ajuste Final de Pesos</h2>
+<p>Actualizar los pesos entre las entradas y las neuronas ocultas:</p>
+<p>Para <span class="math inline">\(w_{11}^{(1)}\)</span>:</p>
+<p><span class="math display">\[
+w_{11}^{(1)} = w_{11}^{(1)} + \eta \cdot \delta_1 \cdot x_1 = 0.4 + 0.1 \cdot 0.011 \cdot 0.5 \approx 0.401
+\]</span></p>
+<p>Para <span class="math inline">\(w_{12}^{(1)}\)</span>:</p>
+<p><span class="math display">\[
+w_{12}^{(1)} = w_{12}^{(1)} + \eta \cdot \delta_1 \cdot x_2 = 0.2 + 0.1 \cdot 0.011 \cdot 0.1 \approx 0.2001
+\]</span></p>
+<p>Para <span class="math inline">\(w_{21}^{(1)}\)</span>:</p>
+<p><span class="math display">\[
+w_{21}^{(1)} = w_{21}^{(1)} + \eta \cdot \delta_2 \cdot x_1 = 0.1 + 0.1 \cdot 0.010 \cdot 0.5 \approx 0.101
+\]</span></p>
+<p>Para <span class="math inline">\(w_{22}^{(1)}\)</span>:</p>
+<p><span class="math display">\[
+w_{22}^{(1)} = w_{22}^{(1)} + \eta \cdot \delta_2 \cdot x_2 = 0.3 + 0.1 \cdot 0.010 \cdot 0.1 \approx 0.3001
+\]</span></p>
+</section>
+<section id="resultados" class="slide level2">
+<h2>Resultados</h2>
+<ul>
+<li>Los pesos han sido ajustados después de aplicar el algoritmo de <strong>backpropagation</strong>.</li>
+<li>El proceso se repite hasta que el error se minimiza a un nivel aceptable.</li>
+</ul>
+</section>
+<section id="aplicaciones-actuales-de-las-redes-neuronales" class="slide level2">
+<h2>Aplicaciones Actuales de las Redes Neuronales</h2>
+<h3 id="visión-por-computadora">Visión por Computadora</h3>
+<ul>
+<li><strong>Reconocimiento de imágenes y objetos</strong>: Clasificación y detección en tiempo real.</li>
+<li><strong>Conducción autónoma</strong>: Interpretación del entorno por vehículos sin conductor.</li>
+<li><strong>Diagnóstico médico</strong>: Detección de anomalías en imágenes médicas.</li>
+</ul>
+</section>
+<section id="procesamiento-del-lenguaje-natural-nlp" class="slide level2">
+<h2>Procesamiento del Lenguaje Natural (NLP)</h2>
+<ul>
+<li><strong>Traducción automática</strong>: Conversión entre idiomas en tiempo real.</li>
+<li><strong>Análisis de sentimiento</strong>: Interpretación de opiniones en redes sociales.</li>
+<li><strong>Chatbots y asistentes virtuales</strong>: Interacción humana con sistemas inteligentes.</li>
+</ul>
+</section>
+<section id="generación-de-contenido" class="slide level2">
+<h2>Generación de Contenido</h2>
+<ul>
+<li><strong>Redes Generativas Adversariales (GANs)</strong>:
+<ul>
+<li>Creación de imágenes, música y texto artificiales.</li>
+</ul></li>
+<li><strong>Deepfakes</strong>: Síntesis de videos y audios realistas pero falsos.</li>
+</ul>
+</section>
+<section id="otros-campos-de-aplicación" class="slide level2">
+<h2>Otros Campos de Aplicación</h2>
+<ul>
+<li><strong>Finanzas</strong>: Predicción de mercados y detección de fraudes.</li>
+<li><strong>Agricultura</strong>: Monitoreo de cultivos y optimización de recursos.</li>
+<li><strong>Ciencias Ambientales</strong>: Modelado climático y predicción de desastres naturales.</li>
+</ul>
+</section>
+<section id="conclusiones" class="slide level2">
+<h2>Conclusiones</h2>
+<ul>
+<li><strong>Evolución constante</strong>: Las redes neuronales siguen avanzando, impulsadas por nuevos algoritmos y mayor poder computacional.</li>
+<li><strong>Amplia aplicabilidad</strong>: Su capacidad para abordar problemas complejos las hace indispensables en múltiples industrias.</li>
+<li><strong>Desafíos futuros</strong>:
+<ul>
+<li>Interpretabilidad de modelos.</li>
+<li>Eficiencia energética y computacional.</li>
+<li>Ética y sesgos en inteligencia artificial.</li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusión-de-la-clase" class="slide level2">
+<h2>Conclusión de la Clase</h2>
+<p>En conclusión, hemos explorado los conceptos fundamentales de las redes neuronales, desde su origen hasta sus aplicaciones actuales en diversos campos. El aprendizaje profundo ha transformado la manera en que abordamos problemas complejos, y su evolución continúa abriendo nuevas oportunidades y desafíos. Es esencial mantenernos actualizados y considerar las implicaciones éticas y sociales al desarrollar y aplicar estas tecnologías.</p>
 </section>
 <section id="referencias" class="slide level2">
 <h2>Referencias</h2>
 <ol type="1">
-<li><strong>EMC Education Services</strong> (2015). <em>Data Science and Big Data Analytics: Discovering, Analyzing, Visualizing and Presenting Data</em>, 1st Edition, John Wiley &amp; Sons.</li>
-<li><strong>Michael A. Nielsen</strong> (2015). <em>Neural Networks and Deep Learning</em>. Available online at <a href="http://neuralnetworksanddeeplearning.com/">http://neuralnetworksanddeeplearning.com/</a>.</li>
+<li><strong>Goodfellow, I., Bengio, Y., &amp; Courville, A.</strong> (2016). <em>Deep Learning</em>. MIT Press.</li>
+<li><strong>Nielsen, M. A.</strong> (2015). <em>Neural Networks and Deep Learning</em>. Disponible en <a href="http://neuralnetworksanddeeplearning.com/">http://neuralnetworksanddeeplearning.com/</a>.</li>
+<li><strong>Chollet, F.</strong> (2018). <em>Deep Learning with Python</em>. Manning Publications.</li>
 </ol>
-<aside class="notes">
-Estas referencias son útiles para profundizar en el tema de redes neuronales y su aplicación en el análisis de datos.
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+</section>
+<section class="slide level2">
+
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
