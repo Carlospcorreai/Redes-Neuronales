@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="Clase Redes Neuronales_files/libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="unab.css">
@@ -526,7 +591,7 @@ Docente: Carlos Correa Iñiguez (<a href="mailto:c.correainiguez@uandresbello.ed
 <p><span class="math display">\[
 \sigma(z) = \frac{1}{1 + e^{-z}}
 \]</span></p>
-<div id="4cd5f044" class="cell" data-execution_count="1">
+<div id="1c68e54d" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -735,10 +800,9 @@ w_i(t+1) = w_i(t) - \eta \frac{\partial L}{\partial w_i}
 \frac{d w_i}{d t} = - \frac{\partial L}{\partial w_i}
 \]</span></li>
 </ul>
-</section></section>
-<section>
-<section id="ejemplo" class="title-slide slide level1 center">
-<h1>Ejemplo</h1>
+</section>
+<section id="ejemplo" class="slide level2">
+<h2>Ejemplo</h2>
 <ul>
 <li><p>Entrada: <span class="math inline">\(x_1 = 0.5\)</span>, <span class="math inline">\(x_2 = 0.1\)</span></p></li>
 <li><p>Salida esperada: <span class="math inline">\(y_{\text{esperado}} = 1\)</span></p></li>
@@ -902,9 +966,279 @@ w_{22}^{(1)} = w_{22}^{(1)} + \eta \cdot \delta_2 \cdot x_2 = 0.3 + 0.1 \cdot 0.
 </ul></li>
 </ul>
 </section>
-<section id="conclusión-de-la-clase" class="slide level2">
-<h2>Conclusión de la Clase</h2>
-<p>En conclusión, hemos explorado los conceptos fundamentales de las redes neuronales, desde su origen hasta sus aplicaciones actuales en diversos campos. El aprendizaje profundo ha transformado la manera en que abordamos problemas complejos, y su evolución continúa abriendo nuevas oportunidades y desafíos. Es esencial mantenernos actualizados y considerar las implicaciones éticas y sociales al desarrollar y aplicar estas tecnologías.</p>
+<section id="aplicación-scikit-learn-perceptron-multicapa" class="slide level2">
+<h2>Aplicación Scikit-learn: Perceptron Multicapa</h2>
+<p>El <strong>Perceptrón Multicapa (MLP)</strong> es un algoritmo de aprendizaje supervisado que dado atributos:</p>
+<p><span class="math display">\[
+X = \{x_1, x_2, \dots, x_m\}
+\]</span></p>
+<p>Aprende una función &nbsp;f() :</p>
+<p><span class="math display">\[
+f: \mathbb{R}^m \rightarrow \mathbb{R}^o
+\]</span></p>
+<p>entrenando con un conjunto de datos, donde:</p>
+<ul>
+<li>( m ) es el número de dimensiones de entrada.</li>
+<li>( o ) es el número de dimensiones de salida.</li>
+</ul>
+</section>
+<section id="aplicación-scikit-learn-perceptron-multicapa-1" class="slide level2">
+<h2>Aplicación Scikit-learn: Perceptron Multicapa</h2>
+<p>El MLP se puede utilizar para:</p>
+<ul>
+<li><strong>Clasificación</strong></li>
+<li><strong>Regresión</strong></li>
+</ul>
+<h3 id="descripción-general-del-mlp">Descripción General del MLP</h3>
+<p>Dado un conjunto de características ( X ) y un objetivo ( y ), el MLP aprende un <strong>aproximador de función no lineal</strong>.</p>
+<h3 id="conceptos-clave">Conceptos Clave:</h3>
+<ul>
+<li>El MLP puede tener <strong>una o más capas ocultas</strong>.</li>
+<li>Cada capa introduce <strong>no linealidad</strong>.</li>
+<li>El MLP es capaz de aprender patrones complejos en los datos.</li>
+</ul>
+</section>
+<section id="comparación-con-la-regresión-logística" class="slide level2">
+<h2>Comparación con la Regresión Logística</h2>
+<ul>
+<li><strong>Regresión Logística</strong>: Solo tiene capas de entrada y salida.</li>
+<li><strong>MLP</strong>: Tiene una o más <strong>capas ocultas</strong> entre la entrada y la salida.</li>
+</ul>
+<p>Las capas ocultas permiten que el MLP capture <strong>relaciones no lineales</strong> que la regresión logística no puede.</p>
+</section>
+<section id="arquitectura-del-mlp" class="slide level2">
+<h2>Arquitectura del MLP</h2>
+<p>Aquí tienes un ejemplo de un <strong>MLP con una capa oculta</strong> y salida escalar:</p>
+<p><span class="math display">\[
+X \rightarrow \text{Capa Oculta} \rightarrow y
+\]</span></p>
+
+<img data-src="Perceptron%20MLP.png" class="r-stretch quarto-figure-center"><p class="caption">Arquitectura MLP</p></section>
+<section id="arquitectura-del-mlp-1" class="slide level2">
+<h2>Arquitectura del MLP</h2>
+<ul>
+<li>La capa más a la izquierda, conocida como <strong>capa de entrada</strong>, está formada por un conjunto de <strong>neuronas</strong> que representan las características de entrada.</li>
+</ul>
+<p>Cada neurona en la <strong>capa oculta</strong> transforma los valores de la capa anterior mediante una <strong>sumatoria ponderada</strong>:</p>
+<p><span class="math display">\[
+z = \sum_{i} w_i x_i + b
+\]</span></p>
+<p>donde ( w_i ) son los pesos y ( b ) es el sesgo.</p>
+<p>Luego, se aplica una <strong>función de activación no lineal</strong>, como la función <strong>tangente hiperbólica</strong>:</p>
+<p><span class="math display">\[
+a = \tanh(z)
+\]</span></p>
+</section>
+<section id="capa-de-salida" class="slide level2">
+<h2>Capa de Salida</h2>
+<p>La <strong>capa de salida</strong> recibe los valores de la última capa oculta y los transforma en los valores de salida que corresponden a las predicciones o resultados del modelo.</p>
+<h3 id="atributos-del-módulo">Atributos del Módulo</h3>
+<p>El módulo contiene los atributos públicos <code>coefs_</code> y <code>intercepts_</code>:</p>
+<ul>
+<li><strong>coefs_</strong>: Lista de <strong>matrices de pesos</strong>, donde la matriz en el índice ( i ) representa los pesos entre la capa ( i ) y la capa ( i+1 ).</li>
+<li><strong>intercepts_</strong>: Lista de <strong>vectores de sesgo</strong>, donde el vector en el índice ( i ) representa los valores de sesgo añadidos a la capa ( i+1 ).</li>
+</ul>
+</section>
+<section id="ventajas-del-perceptrón-multicapa-mlp" class="slide level2">
+<h2>Ventajas del Perceptrón Multicapa (MLP)</h2>
+<ol type="1">
+<li><strong>Capacidad para aprender modelos no lineales</strong>:
+<ul>
+<li>El MLP puede capturar relaciones complejas en los datos, aprendiendo modelos no lineales que otros algoritmos, como la regresión lineal o logística, no pueden.</li>
+</ul></li>
+<li><strong>Aprendizaje en tiempo real (on-line learning)</strong>:
+<ul>
+<li>El MLP es capaz de aprender modelos en tiempo real utilizando la función <code>partial_fit</code>, lo que permite el aprendizaje incremental sin necesidad de entrenar desde cero cada vez que llegan nuevos datos.</li>
+</ul></li>
+</ol>
+</section>
+<section id="desventajas-del-perceptrón-multicapa-mlp" class="slide level2">
+<h2>Desventajas del Perceptrón Multicapa (MLP)</h2>
+<ol type="1">
+<li><strong>Función de pérdida no convexa</strong>:
+<ul>
+<li>El MLP con capas ocultas tiene una función de pérdida no convexa, lo que significa que existen múltiples mínimos locales. Por lo tanto, diferentes inicializaciones aleatorias de los pesos pueden conducir a diferentes precisiones de validación.</li>
+</ul></li>
+<li><strong>Necesidad de ajuste de hiperparámetros</strong>:
+<ul>
+<li>El MLP requiere ajustar varios hiperparámetros, como el número de neuronas ocultas, el número de capas y el número de iteraciones, lo que puede ser complejo.</li>
+</ul></li>
+<li><strong>Sensibilidad al escalado de características</strong>:
+<ul>
+<li>El MLP es sensible al escalado de las características, lo que implica que los datos deben ser normalizados o estandarizados.</li>
+</ul></li>
+</ol>
+</section>
+<section id="aplicación-scikit-learn-qué-es-mlpclassifier" class="slide level2">
+<h2>Aplicación Scikit-learn: ¿Qué es MLPClassifier?</h2>
+<p>La clase <strong>MLPClassifier</strong> implementa un algoritmo de <strong>perceptrón multicapa (MLP)</strong> que entrena utilizando <strong>Backpropagation</strong>.</p>
+<h3 id="entrenamiento-de-mlp">Entrenamiento de MLP</h3>
+<p>El MLP se entrena con dos arreglos:</p>
+<ul>
+<li><strong>X</strong>: Un arreglo de tamaño <span class="math inline">\((n_{\text{samples}}, n_{\text{features}})\)</span>, que contiene las muestras de entrenamiento representadas como vectores de características en punto flotante.</li>
+<li><strong>y</strong>: Un arreglo de tamaño <span class="math inline">\((n_{\text{samples}})\)</span>, que contiene los valores objetivo (etiquetas de clase) para las muestras de entrenamiento.</li>
+</ul>
+</section>
+<section id="representación-de-los-datos" class="slide level2">
+<h2>Representación de los Datos</h2>
+<p><span class="math display">\[
+X = \begin{bmatrix}
+    x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1n} \\
+    x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2n} \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    x_{m1} &amp; x_{m2} &amp; \cdots &amp; x_{mn}
+\end{bmatrix}
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(X\)</span>, contiene las características de las muestras.</li>
+<li><span class="math inline">\(y = \{y_1, y_2, \dots, y_m\}\)</span>, contiene las etiquetas de clase correspondientes.</li>
+</ul>
+</section>
+<section id="proceso-de-entrenamiento" class="slide level2">
+<h2>Proceso de Entrenamiento</h2>
+<ol type="1">
+<li><strong>Propagación hacia adelante</strong>: El MLP realiza una propagación de los valores de entrada a través de la red.</li>
+<li><strong>Cálculo del error</strong>: Se calcula el error de predicción comparando la salida del modelo con las etiquetas reales.</li>
+<li><strong>Backpropagation</strong>: Los errores se retropropagan a través de la red para ajustar los pesos.</li>
+<li><strong>Actualización de pesos</strong>: Los pesos se ajustan iterativamente para minimizar el error utilizando un optimizador (como <strong>Stochastic Gradient Descent</strong>, <strong>Adam</strong>, <strong>Limited-memory Broyden–Fletcher–Goldfarb–Shanno algorithm</strong>).</li>
+</ol>
+</section>
+<section id="codigo-scikit-learn" class="slide level2">
+<h2>Codigo Scikit-learn:</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">from</span> sklearn.neural_network <span class="im">import</span> MLPClassifier</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a><span class="co"># Conjunto de datos de ejemplo</span></span>
+<span id="cb1-4"><a href=""></a>X <span class="op">=</span> [[<span class="fl">0.</span>, <span class="fl">0.</span>], [<span class="fl">1.</span>, <span class="fl">1.</span>]]</span>
+<span id="cb1-5"><a href=""></a>y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="co"># Configuración del MLPClassifier</span></span>
+<span id="cb1-8"><a href=""></a></span>
+<span id="cb1-9"><a href=""></a>clf <span class="op">=</span> MLPClassifier(solver<span class="op">=</span><span class="st">'lbfgs'</span>, alpha<span class="op">=</span><span class="fl">1e-5</span>,</span>
+<span id="cb1-10"><a href=""></a>                    hidden_layer_sizes<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">2</span>), random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-11"><a href=""></a></span>
+<span id="cb1-12"><a href=""></a><span class="co"># Entrenamiento del modelo</span></span>
+<span id="cb1-13"><a href=""></a>clf.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="explicación-del-código">Explicación del Código</h3>
+<ul>
+<li><strong>X</strong>: Conjunto de características de entrada (vectores de características).</li>
+<li><strong>y</strong>: Etiquetas de clase correspondientes.</li>
+<li><strong>solver=‘lbfgs’</strong>: Algoritmo utilizado para la optimización.</li>
+<li><strong>alpha=1e-5</strong>: Parámetro de regularización.</li>
+<li><strong>hidden_layer_sizes=(5, 2)</strong>: Configuración de las capas ocultas (5 neuronas en la primera capa oculta, 2 en la segunda).</li>
+<li><strong>random_state=1</strong>: Fija la semilla para obtener resultados reproducibles.</li>
+</ul>
+<h3 id="entrenamiento-del-modelo">Entrenamiento del Modelo</h3>
+<p>Una vez configurado el <strong>MLPClassifier</strong>, el modelo se entrena con los datos de entrada <span class="math inline">\(X\)</span> y las etiquetas <span class="math inline">\(y\)</span> mediante el método <code>fit()</code>.</p>
+</section>
+<section id="predicción-con-mlpclassifier" class="slide level2">
+<h2>Predicción con MLPClassifier</h2>
+<p>Después de entrenar el modelo, podemos realizar predicciones con nuevos datos de entrada:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Realizar predicciones con nuevos datos</span></span>
+<span id="cb2-2"><a href=""></a>clf.predict([[<span class="fl">2.</span>, <span class="fl">2.</span>], [<span class="op">-</span><span class="fl">1.</span>, <span class="op">-</span><span class="fl">2.</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="ajuste-de-un-modelo-no-lineal">Ajuste de un Modelo No Lineal</h3>
+<p>El <strong>MLPClassifier</strong> puede ajustar un modelo no lineal a los datos de entrenamiento. Después del entrenamiento, los pesos que constituyen los parámetros del modelo están almacenados en el atributo <code>clf.coefs_</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Ver las formas de las matrices de pesos</span></span>
+<span id="cb3-2"><a href=""></a>[coef.shape <span class="cf">for</span> coef <span class="kw">in</span> clf.coefs_]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="resultado-de-los-pesos-en-mlpclassifier">Resultado de los Pesos en MLPClassifier</h3>
+<p>El resultado de <code>[coef.shape for coef in clf.coefs_]</code> podría ser:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>[(<span class="dv">2</span>, <span class="dv">5</span>), (<span class="dv">5</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Cada número en la matriz representa las dimensiones de la conexión entre capas.</p>
+</section>
+<section id="entrenamiento-del-mlp" class="slide level2">
+<h2>Entrenamiento del MLP</h2>
+<ul>
+<li><strong>MLP</strong> se entrena utilizando el algoritmo de <strong>Backpropagation</strong> (retropropagación).</li>
+<li>Más específicamente, utiliza alguna forma de <strong>descenso de gradiente</strong>, donde los gradientes se calculan usando Backpropagation.</li>
+</ul>
+</section>
+<section id="minimización-de-la-cross-entropy" class="slide level2">
+<h2>Minimización de la Cross-Entropy</h2>
+<p>Para clasificación, el MLP también minimiza la función de pérdida <strong>Cross-Entropy</strong>, lo que genera un vector de probabilidades <span class="math inline">\(P(y|x)\)</span> por cada muestra <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[
+L_{\text{Cross-Entropy}} = - \sum_i y_i \log(\hat{y}_i)
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span> son las verdaderas etiquetas.</li>
+<li><span class="math inline">\(\hat{y}_i\)</span> son las probabilidades predichas por el modelo para la clase <span class="math inline">\(i\)</span>.</li>
+</ul>
+</section>
+<section id="probabilidades-con-predict_proba" class="slide level2">
+<h2>Probabilidades con predict_proba</h2>
+<p>El método <code>predict_proba</code> permite obtener un <strong>vector de probabilidades</strong> para cada muestra. Cada elemento del vector representa la probabilidad de que la muestra pertenezca a una clase específica.</p>
+<p><span class="math display">\[
+P(y|x) = \hat{y}_1, \hat{y}_2, \dots, \hat{y}_n
+\]</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Predecir probabilidades para nuevas muestras</span></span>
+<span id="cb5-2"><a href=""></a>clf.predict_proba([[<span class="fl">2.</span>, <span class="fl">2.</span>], [<span class="fl">1.</span>, <span class="fl">2.</span>]])</span>
+<span id="cb5-3"><a href=""></a>array([[<span class="fl">1.967</span>...e<span class="op">-</span><span class="dv">0</span><span class="er">4</span>, <span class="fl">9.998</span>...<span class="op">-</span><span class="dv">0</span><span class="er">1</span>],</span>
+<span id="cb5-4"><a href=""></a>       [<span class="fl">1.967</span>...e<span class="op">-</span><span class="dv">0</span><span class="er">4</span>, <span class="fl">9.998</span>...<span class="op">-</span><span class="dv">0</span><span class="er">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="ejemplo-2-de-predicción-multietiqueta" class="slide level2">
+<h2>Ejemplo 2 de Predicción Multietiqueta</h2>
+<h3 id="paso-1-importar-el-mlpclassifier">Paso 1: Importar el MLPClassifier</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">from</span> sklearn.neural_network <span class="im">import</span> MLPClassifier</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Esto importa la clase MLPClassifier del módulo sklearn.neural_network. MLPClassifier significa “Clasificador de Perceptrón Multicapa”, que es un tipo de red neuronal.</li>
+</ul>
+</section>
+<section id="ejemplo-2-de-predicción-multietiqueta-1" class="slide level2">
+<h2>Ejemplo 2 de Predicción Multietiqueta</h2>
+<h3 id="paso-2-definir-los-datos-de-entrada">Paso 2: Definir los Datos de Entrada</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>X <span class="op">=</span> [[<span class="fl">0.</span>, <span class="fl">0.</span>], [<span class="fl">1.</span>, <span class="fl">1.</span>]]</span>
+<span id="cb7-2"><a href=""></a>y <span class="op">=</span> [[<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><span class="math inline">\(X\)</span> son los datos de entrada, que consisten en dos muestras con dos características cada una.</li>
+<li><span class="math inline">\(y\)</span> son las etiquetas objetivo para los datos de entrada. Cada etiqueta es una lista de dos valores, representando un problema de clasificación de múltiples salidas.</li>
+</ul>
+</section>
+<section id="ejemplo-2-de-predicción-multietiqueta-2" class="slide level2">
+<h2>Ejemplo 2 de Predicción Multietiqueta</h2>
+<h3 id="paso-3-crear-el-mlpclassifier">Paso 3: Crear el MLPClassifier</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">from</span> sklearn.neural_network <span class="im">import</span> MLPClassifier</span>
+<span id="cb8-2"><a href=""></a></span>
+<span id="cb8-3"><a href=""></a>clf <span class="op">=</span> MLPClassifier(solver<span class="op">=</span><span class="st">'lbfgs'</span>, alpha<span class="op">=</span><span class="fl">1e-5</span>,</span>
+<span id="cb8-4"><a href=""></a>                    hidden_layer_sizes<span class="op">=</span>(<span class="dv">15</span>,), random_state<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="paso-4-entrenar-el-modelo">Paso 4: Entrenar el Modelo</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>clf.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esto entrena la red neuronal con los datos de entrada <span class="math inline">\(X\)</span> y las etiquetas objetivo <span class="math inline">\(y\)</span>.</p>
+<h3 id="paso-5-predecir-con-el-modelo">Paso 5: Predecir con el Modelo</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>clf.predict([[<span class="fl">1.</span>, <span class="fl">2.</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esto hace una predicción para una nueva muestra [1., 2.]. La salida es:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>array([[<span class="dv">1</span>, <span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esto significa que el modelo predice la etiqueta [1, 1] para la entrada [1., 2.].</p>
+</section>
+<section id="ejemplo-2-de-predicción-multietiqueta-3" class="slide level2">
+<h2>Ejemplo 2 de Predicción Multietiqueta</h2>
+<h3 id="paso-6.-predecir-con-otra-muestra">Paso 6. Predecir con Otra Muestra</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>clf.predict([[<span class="fl">0.</span>, <span class="fl">0.</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esto hace una predicción para otra nueva muestra [0., 0.]. La salida es:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>array([[<span class="dv">0</span>, <span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esto significa que el modelo predice la etiqueta [0, 1] para la entrada [0., 0.].</p>
+</section>
+<section id="ejemplo-2-de-predicción-multietiqueta-4" class="slide level2">
+<h2>Ejemplo 2 de Predicción Multietiqueta</h2>
+<h3 id="red-neuronal-con-mlpclassifier">Red Neuronal con MLPClassifier</h3>
+<ul>
+<li>El código crea una red neuronal con una capa oculta de <strong>15 neuronas</strong>.</li>
+<li>Se entrena en un conjunto de datos pequeño.</li>
+<li>Utiliza el solver <strong>lbfgs</strong> para la optimización.</li>
+<li>Se regulariza con un término de penalización <strong>L2</strong> <span class="math display">\[
+\alpha=1 \times 10^{-5}\
+\]</span></li>
+<li>El parámetro alpha controla la regularización L2, ayudando a prevenir el sobreajuste y mejorando el rendimiento en datos nuevos.</li>
+<li>Un alpha más alto aumenta la penalización sobre coeficientes grandes, minimizando la suma de sus cuadrados.</li>
+<li>Las predicciones muestran cómo el modelo entrenado <strong>clasifica nuevos puntos de datos</strong>.</li>
+</ul>
+</section>
+<section id="conclusión" class="slide level2">
+<h2>Conclusión</h2>
+<ul>
+<li>Las redes neuronales, como el <strong>Perceptrón Multicapa (MLP)</strong>, ofrecen una poderosa herramienta para resolver problemas complejos de clasificación y regresión.</li>
+<li>Utilizando algoritmos de optimización como <strong>lbfgs</strong> y aplicando técnicas de regularización como <strong>L2</strong>, es posible entrenar modelos que generalicen bien a datos nuevos.</li>
+<li>Aunque presentan algunos desafíos, como la necesidad de ajustar hiperparámetros y la sensibilidad al escalado de características, las redes neuronales siguen siendo una técnica clave en el aprendizaje automático.</li>
+</ul>
 </section>
 <section id="referencias" class="slide level2">
 <h2>Referencias</h2>
@@ -912,6 +1246,7 @@ w_{22}^{(1)} = w_{22}^{(1)} + \eta \cdot \delta_2 \cdot x_2 = 0.3 + 0.1 \cdot 0.
 <li><strong>Goodfellow, I., Bengio, Y., &amp; Courville, A.</strong> (2016). <em>Deep Learning</em>. MIT Press.</li>
 <li><strong>Nielsen, M. A.</strong> (2015). <em>Neural Networks and Deep Learning</em>. Disponible en <a href="http://neuralnetworksanddeeplearning.com/">http://neuralnetworksanddeeplearning.com/</a>.</li>
 <li><strong>Chollet, F.</strong> (2018). <em>Deep Learning with Python</em>. Manning Publications.</li>
+<li><strong>Scikit-learn Documentation</strong>. Disponible en <a href="https://scikit-learn.org/stable/documentation.html">https://scikit-learn.org/stable/documentation.html</a>.</li>
 </ol>
 </section>
 <section class="slide level2">

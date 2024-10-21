@@ -419,7 +419,7 @@ $$
 \frac{d w_i}{d t} = - \frac{\partial L}{\partial w_i}
 $$
 
-# Ejemplo
+## Ejemplo
 
 - Entrada: $x_1 = 0.5$, $x_2 = 0.1$
 - Salida esperada: $y_{\text{esperado}} = 1$
@@ -625,9 +625,349 @@ $$
 
 ---
 
-## Conclusión de la Clase
+## Aplicación Scikit-learn: Perceptron Multicapa
 
-En conclusión, hemos explorado los conceptos fundamentales de las redes neuronales, desde su origen hasta sus aplicaciones actuales en diversos campos. El aprendizaje profundo ha transformado la manera en que abordamos problemas complejos, y su evolución continúa abriendo nuevas oportunidades y desafíos. Es esencial mantenernos actualizados y considerar las implicaciones éticas y sociales al desarrollar y aplicar estas tecnologías.
+El **Perceptrón Multicapa (MLP)** es un algoritmo de aprendizaje supervisado que dado atributos:
+
+$$
+X = \{x_1, x_2, \dots, x_m\}
+$$
+
+Aprende una función \ f(\cdot) \:
+
+$$
+f: \mathbb{R}^m \rightarrow \mathbb{R}^o
+$$
+
+entrenando con un conjunto de datos, donde:
+
+- \( m \) es el número de dimensiones de entrada.
+- \( o \) es el número de dimensiones de salida.
+
+---
+
+## Aplicación Scikit-learn: Perceptron Multicapa
+
+El MLP se puede utilizar para:
+
+- **Clasificación**
+- **Regresión**
+
+### Descripción General del MLP
+
+Dado un conjunto de características \( X \) y un objetivo \( y \), el MLP aprende un **aproximador de función no lineal**.
+
+### Conceptos Clave:
+- El MLP puede tener **una o más capas ocultas**.
+- Cada capa introduce **no linealidad**.
+- El MLP es capaz de aprender patrones complejos en los datos.
+
+---
+
+## Comparación con la Regresión Logística
+
+- **Regresión Logística**: Solo tiene capas de entrada y salida.
+- **MLP**: Tiene una o más **capas ocultas** entre la entrada y la salida.
+
+Las capas ocultas permiten que el MLP capture **relaciones no lineales** que la regresión logística no puede.
+
+---
+
+## Arquitectura del MLP
+
+Aquí tienes un ejemplo de un **MLP con una capa oculta** y salida escalar:
+
+$$
+X \rightarrow \text{Capa Oculta} \rightarrow y
+$$
+
+![Arquitectura MLP](Perceptron%20MLP.png)
+
+---
+
+## Arquitectura del MLP
+
+- La capa más a la izquierda, conocida como **capa de entrada**, está formada por un conjunto de **neuronas** que representan las características de entrada.
+
+Cada neurona en la **capa oculta** transforma los valores de la capa anterior mediante una **sumatoria ponderada**:
+
+$$
+z = \sum_{i} w_i x_i + b
+$$
+
+donde \( w_i \) son los pesos y \( b \) es el sesgo.
+
+Luego, se aplica una **función de activación no lineal**, como la función **tangente hiperbólica**:
+
+$$
+a = \tanh(z)
+$$
+
+---
+
+## Capa de Salida
+
+La **capa de salida** recibe los valores de la última capa oculta y los transforma en los valores de salida que corresponden a las predicciones o resultados del modelo.
+
+### Atributos del Módulo
+
+El módulo contiene los atributos públicos `coefs_` y `intercepts_`:
+
+- **coefs_**: Lista de **matrices de pesos**, donde la matriz en el índice \( i \) representa los pesos entre la capa \( i \) y la capa \( i+1 \).
+- **intercepts_**: Lista de **vectores de sesgo**, donde el vector en el índice \( i \) representa los valores de sesgo añadidos a la capa \( i+1 \).
+
+---
+
+## Ventajas del Perceptrón Multicapa (MLP)
+
+1. **Capacidad para aprender modelos no lineales**:
+   - El MLP puede capturar relaciones complejas en los datos, aprendiendo modelos no lineales que otros algoritmos, como la regresión lineal o logística, no pueden.
+
+2. **Aprendizaje en tiempo real (on-line learning)**:
+   - El MLP es capaz de aprender modelos en tiempo real utilizando la función `partial_fit`, lo que permite el aprendizaje incremental sin necesidad de entrenar desde cero cada vez que llegan nuevos datos.
+
+---
+
+## Desventajas del Perceptrón Multicapa (MLP)
+
+1. **Función de pérdida no convexa**:
+   - El MLP con capas ocultas tiene una función de pérdida no convexa, lo que significa que existen múltiples mínimos locales. Por lo tanto, diferentes inicializaciones aleatorias de los pesos pueden conducir a diferentes precisiones de validación.
+
+2. **Necesidad de ajuste de hiperparámetros**:
+   - El MLP requiere ajustar varios hiperparámetros, como el número de neuronas ocultas, el número de capas y el número de iteraciones, lo que puede ser complejo.
+
+3. **Sensibilidad al escalado de características**:
+   - El MLP es sensible al escalado de las características, lo que implica que los datos deben ser normalizados o estandarizados.
+
+---
+
+## Aplicación Scikit-learn: ¿Qué es MLPClassifier?
+
+La clase **MLPClassifier** implementa un algoritmo de **perceptrón multicapa (MLP)** que entrena utilizando **Backpropagation**.
+
+### Entrenamiento de MLP
+
+El MLP se entrena con dos arreglos:
+
+- **X**: Un arreglo de tamaño $(n_{\text{samples}}, n_{\text{features}})$, que contiene las muestras de entrenamiento representadas como vectores de características en punto flotante.
+- **y**: Un arreglo de tamaño $(n_{\text{samples}})$, que contiene los valores objetivo (etiquetas de clase) para las muestras de entrenamiento.
+
+---
+
+## Representación de los Datos
+
+$$
+X = \begin{bmatrix}
+    x_{11} & x_{12} & \cdots & x_{1n} \\
+    x_{21} & x_{22} & \cdots & x_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    x_{m1} & x_{m2} & \cdots & x_{mn}
+\end{bmatrix}
+$$
+
+Donde:
+
+- $X$, contiene las características de las muestras.
+- $y = \{y_1, y_2, \dots, y_m\}$, contiene las etiquetas de clase correspondientes.
+
+---
+
+## Proceso de Entrenamiento
+
+1. **Propagación hacia adelante**: El MLP realiza una propagación de los valores de entrada a través de la red.
+2. **Cálculo del error**: Se calcula el error de predicción comparando la salida del modelo con las etiquetas reales.
+3. **Backpropagation**: Los errores se retropropagan a través de la red para ajustar los pesos.
+4. **Actualización de pesos**: Los pesos se ajustan iterativamente para minimizar el error utilizando un optimizador (como **Stochastic Gradient Descent**, **Adam**, **Limited-memory Broyden–Fletcher–Goldfarb–Shanno algorithm**).
+
+---
+
+## Codigo Scikit-learn:
+
+```python
+from sklearn.neural_network import MLPClassifier
+
+# Conjunto de datos de ejemplo
+X = [[0., 0.], [1., 1.]]
+y = [0, 1]
+
+# Configuración del MLPClassifier
+
+clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
+                    hidden_layer_sizes=(5, 2), random_state=1)
+
+# Entrenamiento del modelo
+clf.fit(X, y)
+```
+
+### Explicación del Código
+
+- **X**: Conjunto de características de entrada (vectores de características).
+- **y**: Etiquetas de clase correspondientes.
+- **solver='lbfgs'**: Algoritmo utilizado para la optimización.
+- **alpha=1e-5**: Parámetro de regularización.
+- **hidden_layer_sizes=(5, 2)**: Configuración de las capas ocultas (5 neuronas en la primera capa oculta, 2 en la segunda).
+- **random_state=1**: Fija la semilla para obtener resultados reproducibles.
+
+### Entrenamiento del Modelo
+
+Una vez configurado el **MLPClassifier**, el modelo se entrena con los datos de entrada $X$ y las etiquetas $y$ mediante el método `fit()`.
+
+---
+
+## Predicción con MLPClassifier
+
+Después de entrenar el modelo, podemos realizar predicciones con nuevos datos de entrada:
+
+```python
+# Realizar predicciones con nuevos datos
+clf.predict([[2., 2.], [-1., -2.]])
+```
+
+### Ajuste de un Modelo No Lineal
+
+El **MLPClassifier** puede ajustar un modelo no lineal a los datos de entrenamiento. Después del entrenamiento, los pesos que constituyen los parámetros del modelo están almacenados en el atributo `clf.coefs_`.
+
+```python
+# Ver las formas de las matrices de pesos
+[coef.shape for coef in clf.coefs_]
+```
+### Resultado de los Pesos en MLPClassifier
+
+El resultado de `[coef.shape for coef in clf.coefs_]` podría ser:
+
+```python
+[(2, 5), (5, 2), (2, 1)]
+```
+Cada número en la matriz representa las dimensiones de la conexión entre capas.
+
+---
+
+## Entrenamiento del MLP
+
+- **MLP** se entrena utilizando el algoritmo de **Backpropagation** (retropropagación).
+- Más específicamente, utiliza alguna forma de **descenso de gradiente**, donde los gradientes se calculan usando Backpropagation.
+
+## Minimización de la Cross-Entropy
+
+Para clasificación, el MLP también minimiza la función de pérdida **Cross-Entropy**, lo que genera un vector de probabilidades $P(y|x)$ por cada muestra $x$.
+
+$$
+L_{\text{Cross-Entropy}} = - \sum_i y_i \log(\hat{y}_i)
+$$
+
+Donde:
+
+- $y_i$ son las verdaderas etiquetas.
+- $\hat{y}_i$ son las probabilidades predichas por el modelo para la clase $i$.
+
+---
+
+## Probabilidades con predict_proba
+
+El método `predict_proba` permite obtener un **vector de probabilidades** para cada muestra. Cada elemento del vector representa la probabilidad de que la muestra pertenezca a una clase específica.
+
+$$
+P(y|x) = \hat{y}_1, \hat{y}_2, \dots, \hat{y}_n
+$$
+
+```python
+# Predecir probabilidades para nuevas muestras
+clf.predict_proba([[2., 2.], [1., 2.]])
+array([[1.967...e-04, 9.998...-01],
+       [1.967...e-04, 9.998...-01]])
+```
+
+---
+
+## Ejemplo 2 de Predicción Multietiqueta
+
+### Paso 1: Importar el MLPClassifier
+```python
+from sklearn.neural_network import MLPClassifier
+```
+
+- Esto importa la clase MLPClassifier del módulo sklearn.neural_network. MLPClassifier significa "Clasificador de Perceptrón Multicapa", que es un tipo de red neuronal.
+
+---
+
+## Ejemplo 2 de Predicción Multietiqueta
+
+### Paso 2: Definir los Datos de Entrada
+```python
+X = [[0., 0.], [1., 1.]]
+y = [[0, 1], [1, 1]]
+```
+- $X$ son los datos de entrada, que consisten en dos muestras con dos características cada una.
+- $y$ son las etiquetas objetivo para los datos de entrada. Cada etiqueta es una lista de dos valores, representando un problema de clasificación de múltiples salidas.
+
+---
+
+## Ejemplo 2 de Predicción Multietiqueta
+### Paso 3: Crear el MLPClassifier
+
+```python
+from sklearn.neural_network import MLPClassifier
+
+clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
+                    hidden_layer_sizes=(15,), random_state=1)
+```                  
+
+### Paso 4: Entrenar el Modelo
+
+```python
+clf.fit(X, y)
+```
+Esto entrena la red neuronal con los datos de entrada $X$ y las etiquetas objetivo $y$.
+
+### Paso 5: Predecir con el Modelo
+
+```python
+clf.predict([[1., 2.]])
+```
+Esto hace una predicción para una nueva muestra [1., 2.]. La salida es:
+```python
+array([[1, 1]])
+```
+Esto significa que el modelo predice la etiqueta [1, 1] para la entrada [1., 2.].
+
+---
+
+## Ejemplo 2 de Predicción Multietiqueta
+### Paso 6. Predecir con Otra Muestra
+
+```python
+clf.predict([[0., 0.]])
+```
+Esto hace una predicción para otra nueva muestra [0., 0.]. La salida es:
+```python
+array([[0, 1]])
+```
+Esto significa que el modelo predice la etiqueta [0, 1] para la entrada [0., 0.].
+
+---
+
+## Ejemplo 2 de Predicción Multietiqueta
+
+### Red Neuronal con MLPClassifier
+
+- El código crea una red neuronal con una capa oculta de **15 neuronas**.
+- Se entrena en un conjunto de datos pequeño.
+- Utiliza el solver **lbfgs** para la optimización.
+- Se regulariza con un término de penalización **L2**
+$$
+\alpha=1 \times 10^{-5}\
+$$
+- El parámetro alpha controla la regularización L2, ayudando a prevenir el sobreajuste y mejorando el rendimiento en datos nuevos.
+- Un alpha más alto aumenta la penalización sobre coeficientes grandes, minimizando la suma de sus cuadrados.
+- Las predicciones muestran cómo el modelo entrenado **clasifica nuevos puntos de datos**.
+
+---
+
+## Conclusión
+
+- Las redes neuronales, como el **Perceptrón Multicapa (MLP)**, ofrecen una poderosa herramienta para resolver problemas complejos de clasificación y regresión.
+- Utilizando algoritmos de optimización como **lbfgs** y aplicando técnicas de regularización como **L2**, es posible entrenar modelos que generalicen bien a datos nuevos.
+- Aunque presentan algunos desafíos, como la necesidad de ajustar hiperparámetros y la sensibilidad al escalado de características, las redes neuronales siguen siendo una técnica clave en el aprendizaje automático.
 
 ---
 
@@ -636,5 +976,6 @@ En conclusión, hemos explorado los conceptos fundamentales de las redes neurona
 1. **Goodfellow, I., Bengio, Y., & Courville, A.** (2016). *Deep Learning*. MIT Press.
 2. **Nielsen, M. A.** (2015). *Neural Networks and Deep Learning*. Disponible en [http://neuralnetworksanddeeplearning.com/](http://neuralnetworksanddeeplearning.com/).
 3. **Chollet, F.** (2018). *Deep Learning with Python*. Manning Publications.
+4. **Scikit-learn Documentation**. Disponible en [https://scikit-learn.org/stable/documentation.html](https://scikit-learn.org/stable/documentation.html).
 
 ---
