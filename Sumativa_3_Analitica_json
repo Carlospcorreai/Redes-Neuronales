@@ -1,0 +1,267 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "introduccion",
+   "metadata": {},
+   "source": [
+    "# Prueba: Modelado de una Red Neuronal con MLPClassifier\n",
+    "\n",
+    "## Instrucciones\n",
+    "\n",
+    "Utiliza el lenguaje de programación **Python** y las bibliotecas **scikit-learn** y **pandas** para completar esta prueba.\n",
+    "\n",
+    "Tu tarea es realizar los siguientes pasos:\n",
+    "\n",
+    "1. **Cargar y explorar los datos**.\n",
+    "2. **Preparar los datos para el entrenamiento**.\n",
+    "3. **Construir y entrenar una red neuronal (Perceptrón Multicapa) utilizando `MLPClassifier`**.\n",
+    "4. **Evaluar el desempeño del modelo** utilizando métricas apropiadas.\n",
+    "5. **Analizar los resultados y proponer mejoras**.\n",
+    "\n",
+    "**Nota**: Comenta tu código adecuadamente y muestra los resultados de cada paso."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "carga-datos",
+   "metadata": {},
+   "source": [
+    "## 1. Carga y exploración de datos\n",
+    "\n",
+    "- Carga el conjunto de datos de cáncer de mama utilizando `load_breast_cancer` de scikit-learn.\n",
+    "- Convierte los datos en un DataFrame de pandas y asigna nombres a las columnas.\n",
+    "- Agrega una nueva columna `'target'` al DataFrame con las etiquetas de clasificación.\n",
+    "- Muestra las primeras 5 filas del DataFrame para verificar que los datos se han cargado correctamente.\n",
+    "- Explora el DataFrame para entender la distribución de las características y la variable objetivo."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "codigo-carga-datos",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Tu código aquí\n",
+    "from sklearn.datasets import load_breast_cancer\n",
+    "import pandas as pd\n",
+    "\n",
+    "# Cargamos el conjunto de datos de cáncer de mama\n",
+    "data = load_breast_cancer()\n",
+    "\n",
+    "# Convertimos los datos en un DataFrame de pandas y asignamos nombres a las columnas\n",
+    "df = pd.DataFrame(data.data, columns=data.feature_names)\n",
+    "\n",
+    "# Agregamos una nueva columna 'target' al DataFrame con las etiquetas de clasificación\n",
+    "df['target'] = data.target\n",
+    "\n",
+    "# Mostramos las primeras 5 filas del DataFrame para verificar que los datos se han cargado correctamente\n",
+    "print(df.head())\n",
+    "\n",
+    "# Exploración adicional\n",
+    "# Por ejemplo, puedes mostrar información general del DataFrame\n",
+    "df.info()\n",
+    "\n",
+    "# Describir las estadísticas básicas\n",
+    "df.describe()\n",
+    "\n",
+    "# Distribución de la variable objetivo\n",
+    "df['target'].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "preparacion-datos",
+   "metadata": {},
+   "source": [
+    "## 2. Preparación de los datos\n",
+    "\n",
+    "- Verifica si hay datos faltantes y maneja cualquier dato faltante si es necesario.\n",
+    "- Divide los datos en conjuntos de **entrenamiento** y **prueba** (por ejemplo, 70% entrenamiento y 30% prueba) utilizando `train_test_split`.\n",
+    "- Escala las características utilizando una técnica de escalado apropiada (por ejemplo, `StandardScaler`) para mejorar el rendimiento del modelo."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "codigo-preparacion-datos",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Tu código aquí\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.preprocessing import StandardScaler\n",
+    "\n",
+    "# Verificar si hay datos faltantes\n",
+    "print(df.isnull().sum())\n",
+    "\n",
+    "# Separar características y variable objetivo\n",
+    "X = df.drop('target', axis=1)\n",
+    "y = df['target']\n",
+    "\n",
+    "# Dividir los datos en conjuntos de entrenamiento y prueba\n",
+    "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n",
+    "\n",
+    "# Escalar las características\n",
+    "scaler = StandardScaler()\n",
+    "X_train_scaled = scaler.fit_transform(X_train)\n",
+    "X_test_scaled = scaler.transform(X_test)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "construccion-modelo",
+   "metadata": {},
+   "source": [
+    "## 3. Construcción y entrenamiento del modelo\n",
+    "\n",
+    "- Importa `MLPClassifier` de scikit-learn.\n",
+    "- Construye un modelo de Perceptrón Multicapa con una arquitectura de tu elección. Considera lo siguiente:\n",
+    "  - Número de capas ocultas y neuronas en cada capa.\n",
+    "  - Función de activación (por ejemplo, `'relu'`, `'tanh'`, `'logistic'`).\n",
+    "  - Parámetros como `solver`, `learning_rate`, y `max_iter`.\n",
+    "- Entrena el modelo utilizando el conjunto de entrenamiento."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "codigo-construccion-modelo",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Tu código aquí\n",
+    "from sklearn.neural_network import MLPClassifier\n",
+    "\n",
+    "# Crear el modelo\n",
+    "mlp = MLPClassifier(hidden_layer_sizes=(100, ), activation='relu', solver='adam', max_iter=300, random_state=42)\n",
+    "\n",
+    "# Entrenar el modelo\n",
+    "mlp.fit(X_train_scaled, y_train)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "evaluacion-modelo",
+   "metadata": {},
+   "source": [
+    "## 4. Evaluación del modelo\n",
+    "\n",
+    "- Utiliza el conjunto de prueba para evaluar el desempeño del modelo.\n",
+    "- Calcula métricas como:\n",
+    "  - **Precisión (accuracy)**\n",
+    "  - **Precisión (precision)**\n",
+    "  - **Exhaustividad (recall)**\n",
+    "  - **Puntuación F1 (F1-score)**\n",
+    "- Genera y presenta la **matriz de confusión**.\n",
+    "- Si es posible, muestra el **informe de clasificación** (`classification_report`)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "codigo-evaluacion-modelo",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Tu código aquí\n",
+    "from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, f1_score\n",
+    "\n",
+    "# Realizar predicciones en el conjunto de prueba\n",
+    "y_pred = mlp.predict(X_test_scaled)\n",
+    "\n",
+    "# Calcular las métricas\n",
+    "print('Exactitud (Accuracy):', accuracy_score(y_test, y_pred))\n",
+    "print('Precisión (Precision):', precision_score(y_test, y_pred))\n",
+    "print('Exhaustividad (Recall):', recall_score(y_test, y_pred))\n",
+    "print('Puntuación F1 (F1-score):', f1_score(y_test, y_pred))\n",
+    "\n",
+    "# Matriz de confusión\n",
+    "cm = confusion_matrix(y_test, y_pred)\n",
+    "print('Matriz de Confusión:\\n', cm)\n",
+    "\n",
+    "# Informe de clasificación\n",
+    "print('Informe de Clasificación:\\n', classification_report(y_test, y_pred))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "analisis-resultados",
+   "metadata": {},
+   "source": [
+    "## 5. Análisis de resultados y propuesta de mejoras\n",
+    "\n",
+    "- Comenta sobre el desempeño del modelo. Considera:\n",
+    "  - ¿El modelo muestra buen rendimiento en términos de las métricas calculadas?\n",
+    "  - ¿Hay indicios de **sobreajuste** o **subajuste**?\n",
+    "- Propón al menos dos formas de mejorar el desempeño del modelo. Por ejemplo:\n",
+    "  - Ajuste de hiperparámetros utilizando **GridSearchCV** o **RandomizedSearchCV**.\n",
+    "  - Modificación de la arquitectura de la red (número de capas, neuronas, etc.).\n",
+    "  - Implementación de técnicas de regularización (por ejemplo, `alpha` en `MLPClassifier`).\n",
+    "  - Cambio en la función de activación o el optimizador (`solver`)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "comentarios-analisis",
+   "metadata": {},
+   "source": [
+    "### Tu análisis aquí\n",
+    "\n",
+    "- **Desempeño del modelo**:\n",
+    "  - *(Escribe aquí tus observaciones sobre el desempeño del modelo basándote en las métricas obtenidas y la matriz de confusión.)*\n",
+    "\n",
+    "- **Posibles indicios de sobreajuste o subajuste**:\n",
+    "  - *(Comenta si el modelo está sobreajustando o subajustando, y cómo lo identificaste.)*\n",
+    "\n",
+    "- **Propuestas de mejora**:\n",
+    "  1. *(Primera propuesta de mejora con su justificación.)*\n",
+    "  2. *(Segunda propuesta de mejora con su justificación.)*"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "recursos-adicionales",
+   "metadata": {},
+   "source": [
+    "## Recursos Adicionales\n",
+    "\n",
+    "- [Documentación de scikit-learn sobre MLPClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html)\n",
+    "- [Tutorial sobre cómo ajustar hiperparámetros](https://scikit-learn.org/stable/modules/grid_search.html)\n",
+    "- [Guía sobre métricas de evaluación](https://scikit-learn.org/stable/modules/model_evaluation.html)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "conclusion",
+   "metadata": {},
+   "source": [
+    "## Conclusiones\n",
+    "\n",
+    "- *(Escribe aquí tus conclusiones finales sobre el ejercicio, lo que aprendiste y cualquier observación adicional.)*"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
