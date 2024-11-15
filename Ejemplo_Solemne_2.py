@@ -1,185 +1,173 @@
-# Slide 1:
-# Universidad Universidad Andres Bello
-# Facultad de Ciencias
-# Carrera de Ingeniería
-# Integrantes del grupo: Tulio Triviño, Juan Carlos Bodoque
+"""
+Archivo: neural_network_with_rubric.py
+Descripción: Implementación de una red neuronal con validación cruzada y búsqueda de hiperparámetros utilizando GridSearchCV en scikit-learn.
+Incluye una rúbrica de evaluación como comentarios al final del archivo.
+"""
 
-# Slide 2, 3, 4: Introducción
-# En este trabajo se realiza un análisis comparativo de diferentes algoritmos de aprendizaje supervisado
-# para resolver un problema de clasificación utilizando el conjunto de datos de cáncer de mama de Wisconsin.
-# Se explicará en qué consiste el aprendizaje supervisado, los algoritmos utilizados y los objetivos del estudio.
-
-# El aprendizaje supervisado es una técnica de Machine Learning donde un modelo se entrena con datos etiquetados.
-# Los algoritmos utilizados en este estudio incluyen Regresión Logística, Árboles de Decisión y Redes Neuronales.
-# El objetivo es identificar cuál algoritmo tiene mejor desempeño según las medidas de evaluación.
-
-# Importación de librerías necesarias
-import pandas as pd
+# Importar las librerías necesarias
 import numpy as np
-import time
-from sklearn.datasets import load_breast_cancer
-from sklearn.model_selection import KFold, cross_val_score, GridSearchCV, train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier, plot_tree
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score, roc_curve, roc_auc_score, classification_report
-import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import classification_report, confusion_matrix
 
-# Slide 5: Defina variable dependiente y variables independientes
-# En este estudio, la variable dependiente es 'target', que indica si el tumor es maligno o benigno.
-# Las variables independientes son las características del tumor, como textura, área, perímetro, etc.
-# Dado que la variable objetivo es categórica, utilizaremos algoritmos de clasificación.
+def main():
+    # Cargar el conjunto de datos Iris
+    iris = load_iris()
+    X = iris.data
+    y = iris.target
 
-# Carga de datos
-data = load_breast_cancer()  # Cargamos el conjunto de datos de cáncer de mama de Wisconsin
-X = data.data  # Características del tumor (variables independientes)
-y = data.target  # Variable objetivo (maligno o benigno)
+    # Dividir los datos en conjunto de entrenamiento y prueba con estratificación
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
 
-# División de datos en entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)  # Dividimos los datos en 80% entrenamiento y 20% prueba
+    # Crear un pipeline que estandariza los datos y entrena la red neuronal
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),
+        ('mlp', MLPClassifier(max_iter=1000, random_state=42))
+    ])
 
-# Slide 6: Tabla con tiempo de entrenamiento en la validación cruzada k-fold
-# Definimos el número de folds para la validación cruzada y el procesador utilizado
-kfold = KFold(n_splits=5, shuffle=True, random_state=42)
-# Procesador: Mac M1
+    # Definir la cuadrícula de hiperparámetros para buscar
+    param_grid = {
+        'mlp__hidden_layer_sizes': [(50,), (100,), (50, 50), (100, 50)],
+        'mlp__activation': ['tanh', 'relu'],
+        'mlp__solver': ['sgd', 'adam'],
+        'mlp__alpha': [0.0001, 0.001, 0.01],
+        'mlp__learning_rate': ['constant', 'adaptive'],
+    }
 
-# Inicializamos un diccionario para guardar los tiempos de entrenamiento
-training_times = {}
+    # Configurar la búsqueda en cuadrícula con validación cruzada de 5 pliegues
+    grid_search = GridSearchCV(
+        estimator=pipeline,
+        param_grid=param_grid,
+        cv=5,  # Número de pliegues
+        n_jobs=-1,
+        scoring='accuracy',
+        verbose=2,
+        return_train_score=True
+    )
 
-# Regresión Logística
-start_time = time.time()  # Iniciamos el contador de tiempo
-log_reg = LogisticRegression(max_iter=1000)  # Creamos el modelo de Regresión Logística
-scores = cross_val_score(log_reg, X_train, y_train, cv=kfold)  # Validación cruzada
-training_times['Regresión Logística'] = time.time() - start_time  # Calculamos el tiempo de entrenamiento
+    # Entrenar el modelo usando GridSearchCV
+    grid_search.fit(X_train, y_train)
 
-# Árbol de Decisión
-start_time = time.time()
-tree = DecisionTreeClassifier()  # Creamos el modelo de Árbol de Decisión
-scores = cross_val_score(tree, X_train, y_train, cv=kfold)
-training_times['Árbol de Decisión'] = time.time() - start_time
+    # Mostrar los mejores parámetros encontrados
+    print("\nMejores parámetros encontrados:")
+    print(grid_search.best_params_)
 
-# Red Neuronal
-start_time = time.time()
-mlp = MLPClassifier(max_iter=1000)  # Creamos el modelo de Red Neuronal
-scores = cross_val_score(mlp, X_train, y_train, cv=kfold)
-training_times['Red Neuronal'] = time.time() - start_time
+    # Mostrar la mejor puntuación de validación cruzada
+    print(f"\nMejor precisión en validación cruzada: {grid_search.best_score_:.4f}")
 
-# Creación de la tabla de tiempos
-times_df = pd.DataFrame(list(training_times.items()), columns=['Algoritmo', 'Tiempo de Entrenamiento (s)'])
-print(times_df)  # Mostramos los tiempos de entrenamiento de cada modelo
+    # Obtener todos los resultados de la búsqueda y mostrarlos como DataFrame ordenado
+    results = pd.DataFrame(grid_search.cv_results_)
+    results_sorted = results.sort_values(by='mean_test_score', ascending=False)
+    print("\nResultados de la validación cruzada para cada combinación de hiperparámetros:")
+    print(results_sorted[['mean_test_score', 'std_test_score', 'params']].to_string(index=False))
 
-# Slide 7: Tabla de coeficientes del modelo de Regresión Logística
-# Realizamos una búsqueda de hiperparámetros para encontrar el mejor modelo
-param_grid = {'C': [0.1, 1, 10, 100]}  # Valores de regularización a probar
-grid = GridSearchCV(LogisticRegression(max_iter=1000), param_grid, cv=kfold)
-grid.fit(X_train, y_train)  # Entrenamos con validación cruzada
-best_log_reg = grid.best_estimator_  # Obtenemos el mejor modelo encontrado
+    # Evaluar el mejor modelo en el conjunto de prueba
+    best_model = grid_search.best_estimator_
+    y_pred = best_model.predict(X_test)
 
-# Mostramos los coeficientes del mejor modelo
-coefficients = pd.DataFrame(best_log_reg.coef_.flatten(), index=data.feature_names, columns=['Coeficientes'])
-print(coefficients)  # Imprimimos los coeficientes asociados a cada característica
+    print("\nReporte de clasificación en el conjunto de prueba:")
+    print(classification_report(y_test, y_pred))
 
-# Slide 8: Gráfico del mejor modelo de Árbol de Decisión
-# Realizamos una búsqueda de hiperparámetros para el Árbol de Decisión
-param_grid = {'max_depth': [3, 5, 7, None]}  # Profundidades máximas a probar
-grid = GridSearchCV(DecisionTreeClassifier(), param_grid, cv=kfold)
-grid.fit(X_train, y_train)
-best_tree = grid.best_estimator_
+    print("Matriz de confusión en el conjunto de prueba:")
+    print(confusion_matrix(y_test, y_pred))
 
-# Graficamos el árbol
-plt.figure(figsize=(20,10))  # Tamaño de la figura
-plot_tree(best_tree, feature_names=data.feature_names, class_names=data.target_names, filled=True)
-plt.show()  # Mostramos el árbol de decisión
+    # Evaluar el modelo con validación cruzada en el conjunto completo
+    cv_scores = cross_val_score(best_model, X, y, cv=5, scoring='accuracy')
+    print("\nValidación cruzada adicional con 5 pliegues en todo el conjunto de datos:")
+    print(f"Precisión por pliegue: {cv_scores}")
+    print(f"Precisión Media: {cv_scores.mean():.4f} (Desviación Estándar: {cv_scores.std():.4f})")
 
-# Slide 9: Gráfico de la mejor performance de la Red Neuronal
-# Realizamos una búsqueda de hiperparámetros para la Red Neuronal
-param_grid = {
-    'hidden_layer_sizes': [(50,), (100,), (100,50)],  # Tamaños de capas ocultas a probar
-    'activation': ['relu', 'tanh']  # Funciones de activación a probar
-}
-grid = GridSearchCV(MLPClassifier(max_iter=1000), param_grid, cv=kfold)
-grid.fit(X_train, y_train)
-best_mlp = grid.best_estimator_
+if __name__ == "__main__":
+    main()
 
-# Graficamos la curva de pérdida durante el entrenamiento
-plt.plot(best_mlp.loss_curve_)  # Curva de pérdida
-plt.title('Curva de Pérdida de la Red Neuronal')
-plt.xlabel('Iteraciones')
-plt.ylabel('Pérdida')
-plt.show()  # Mostramos la curva de aprendizaje
+"""
+---
+Rúbrica de Evaluación: Red Neuronal con Validación Cruzada y GridSearch en scikit-learn
 
-# Slide 10: Gráfico comparativo de las medidas de evaluación del desempeño
-# Obtenemos las medidas de evaluación
-models = {
-    'Regresión Logística': best_log_reg,
-    'Árbol de Decisión': best_tree,
-    'Red Neuronal': best_mlp
-}
-results = {}
-for name, model in models.items():
-    cv_scores = cross_val_score(model, X_train, y_train, cv=kfold)  # Validación cruzada
-    results[name] = {'Accuracy': np.mean(cv_scores), 'Hiperparámetros': model.get_params()}
+## **Rúbrica de Evaluación: Red Neuronal con Validación Cruzada y GridSearch en scikit-learn**
 
-results_df = pd.DataFrame(results).T  # Convertimos a DataFrame
-print(results_df)  # Mostramos las métricas de cada modelo
+| **Criterio**                                      | **Descripción**                                                                                                                                                                              | **Puntuación Máxima** |
+|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+| **1. Carga y Exploración de Datos**               | - Importación correcta del conjunto de datos (e.g., Iris).<br>- División adecuada en conjuntos de entrenamiento y prueba.<br>- Manejo de variables independientes y dependientes.            | 14 puntos             |
+| **2. Preprocesamiento de Datos**                  | - Uso correcto de `StandardScaler` para estandarizar los datos.<br>- Implementación adecuada dentro de un `Pipeline` para asegurar el preprocesamiento durante la validación cruzada.          | 14 puntos             |
+| **3. Construcción del Pipeline**                  | - Creación efectiva de un `Pipeline` que incluye escalado y modelo de red neuronal.<br>- Uso apropiado de `MLPClassifier` con parámetros iniciales definidos.                                 | 14 puntos             |
+| **4. Definición de la Cuadrícula de Hiperparámetros** | - Selección relevante de hiperparámetros para la red neuronal (e.g., `hidden_layer_sizes`, `activation`, `solver`, `alpha`, `learning_rate`).<br>- Definición clara y completa de las combinaciones posibles. | 14 puntos             |
+| **5. Configuración de GridSearchCV**              | - Implementación correcta de `GridSearchCV` con el `Pipeline`.<br>- Parámetros adecuados para la validación cruzada (e.g., `cv=5`, `n_jobs=-1`).<br>- Uso correcto de `scoring` y `verbose`.     | 14 puntos             |
+| **6. Entrenamiento y Optimización del Modelo**    | - Ejecución correcta de `grid_search.fit()` en el conjunto de entrenamiento.<br>- Manejo adecuado de posibles advertencias o errores durante el entrenamiento.<br>- Tiempo de entrenamiento razonable. | 10 puntos             |
+| **7. Evaluación de Resultados**                   | - Presentación clara de los mejores parámetros encontrados.<br>- Reporte preciso de la mejor puntuación de validación cruzada.<br>- Evaluación detallada del modelo en el conjunto de prueba (e.g., `classification_report`, `confusion_matrix`). | 10 puntos             |
+| **8. Documentación y Claridad del Código**        | - Código bien estructurado y comentado.<br>- Uso adecuado de nombres de variables y funciones.<br>- Claridad en la presentación de resultados y explicaciones.                              | 5 puntos              |
+| **9. Consideraciones Adicionales**                | - Inclusión de consideraciones sobre preprocesamiento, selección de hiperparámetros, y evaluación.<br>- Adaptabilidad del código a otros conjuntos de datos.                                | 5 puntos              |
+| **Total**                                          |                                                                                                                                                                                              | **100 puntos**        |
 
-# Gráfico comparativo
-results_df['Accuracy'].plot(kind='bar')  # Gráfico de barras de accuracy
-plt.title('Comparación de Accuracy entre Modelos')
-plt.ylabel('Accuracy')
-plt.show()  # Mostramos el gráfico comparativo
+---
+### **Descripción de los Criterios**
 
-# Slide 11: Tabla resumen de medidas con datos de prueba
-# Evaluamos los modelos en el conjunto de prueba
-test_results = {}
-for name, model in models.items():
-    y_pred = model.predict(X_test)  # Predicciones en el conjunto de prueba
-    accuracy = accuracy_score(y_test, y_pred)  # Calculamos el accuracy
-    test_results[name] = {'Accuracy en Test': accuracy}
+1. **Carga y Exploración de Datos (14 puntos)**
+   - **Importación de Datos**: Verificar que el conjunto de datos se carga correctamente utilizando `load_iris()` u otro método adecuado.
+   - **División de Datos**: Asegurarse de que los datos se dividen correctamente en conjuntos de entrenamiento y prueba utilizando `train_test_split`, con una proporción adecuada (e.g., 80-20) y estratificación para mantener la distribución de clases.
+   - **Asignación de Variables**: Confirmar que las variables independientes (`X`) y la variable dependiente (`y`) están correctamente asignadas.
 
-test_results_df = pd.DataFrame(test_results).T
-print(test_results_df)  # Mostramos el rendimiento en datos de prueba
+2. **Preprocesamiento de Datos (14 puntos)**
+   - **Estandarización**: Uso correcto de `StandardScaler` para estandarizar las características.
+   - **Integración en Pipeline**: Verificar que el escalado se integra adecuadamente en un `Pipeline` para garantizar que se aplique correctamente durante la validación cruzada.
 
-# Explicación sobre el sesgo del algoritmo
-# El sesgo en los algoritmos puede afectar la predicción si el modelo es demasiado simple (alto sesgo),
-# lo que puede llevar a un underfitting y malas predicciones en datos nuevos.
+3. **Construcción del Pipeline (14 puntos)**
+   - **Componentes del Pipeline**: Asegurarse de que el `Pipeline` incluye tanto el escalador como el clasificador de red neuronal (`MLPClassifier`).
+   - **Configuración Inicial**: Verificar que `MLPClassifier` está configurado con parámetros iniciales razonables, como `max_iter` y `random_state`.
 
-# Slide 12 y 13: Gráficos adicionales
-# Curva ROC para el mejor modelo
-y_score = best_log_reg.decision_function(X_test)  # Puntajes de decisión
-fpr, tpr, thresholds = roc_curve(y_test, y_score)  # Calculamos FPR y TPR
-roc_auc = roc_auc_score(y_test, y_score)  # Área bajo la curva ROC
+4. **Definición de la Cuadrícula de Hiperparámetros (14 puntos)**
+   - **Selección de Hiperparámetros**: Evaluar la relevancia de los hiperparámetros seleccionados para la optimización.
+   - **Combinaciones de Parámetros**: Comprobar que las combinaciones de hiperparámetros son exhaustivas y pertinentes para mejorar el rendimiento del modelo.
 
-plt.figure()
-plt.plot(fpr, tpr, label='Curva ROC (área = %0.2f)' % roc_auc)  # Curva ROC
-plt.plot([0, 1], [0, 1], 'k--')  # Línea diagonal
-plt.title('Curva ROC - Regresión Logística')
-plt.xlabel('Tasa de Falsos Positivos')
-plt.ylabel('Tasa de Verdaderos Positivos')
-plt.legend(loc='lower right')
-plt.show()  # Mostramos la curva ROC
+5. **Configuración de GridSearchCV (14 puntos)**
+   - **Implementación Correcta**: Confirmar que `GridSearchCV` está configurado correctamente con el `Pipeline`, `param_grid`, y otros parámetros como `cv=5`, `n_jobs=-1`, `scoring='accuracy'`, y `verbose=2`.
+   - **Optimización Eficiente**: Asegurar que se utilizan recursos de manera eficiente (e.g., `n_jobs=-1` para utilizar todos los núcleos disponibles).
 
-# Diagrama de dispersión de dos características
-plt.scatter(X[:, 0], X[:, 1], c=y)  # Graficamos las dos primeras características
-plt.xlabel(data.feature_names[0])
-plt.ylabel(data.feature_names[1])
-plt.title('Diagrama de Dispersión de Características')
-plt.show()  # Mostramos el diagrama de dispersión
+6. **Entrenamiento y Optimización del Modelo (10 puntos)**
+   - **Ejecución del Entrenamiento**: Verificar que el entrenamiento del modelo se realiza sin errores y que el proceso es eficiente.
+   - **Manejo de Errores**: Comprobar que el código maneja adecuadamente posibles advertencias o errores durante el entrenamiento.
 
-# Gráfico de línea de los coeficientes
-coefficients.plot(kind='line')  # Gráfico de los coeficientes
-plt.title('Coeficientes del Mejor Modelo de Regresión Logística')
-plt.ylabel('Valor del Coeficiente')
-plt.show()  # Mostramos el gráfico de coeficientes
+7. **Evaluación de Resultados (10 puntos)**
+   - **Mejores Parámetros**: Presentar claramente los mejores parámetros encontrados por `GridSearchCV`.
+   - **Puntuación de Validación Cruzada**: Reportar la mejor puntuación obtenida durante la validación cruzada.
+   - **Evaluación en Conjunto de Prueba**: Incluir un reporte de clasificación y una matriz de confusión para evaluar el rendimiento final del modelo.
 
-# Slide 14: Conclusiones
-# De acuerdo con los resultados obtenidos, el modelo de Regresión Logística presentó el mejor desempeño
-# en términos de accuracy y tiempo de entrenamiento. Los hiperparámetros óptimos fueron C=1.
-# El Árbol de Decisión y la Red Neuronal también mostraron buenos resultados, pero con tiempos de entrenamiento mayores.
+8. **Documentación y Claridad del Código (5 puntos)**
+   - **Comentarios y Explicaciones**: El código debe estar bien comentado, explicando cada sección y los pasos realizados.
+   - **Legibilidad**: Uso adecuado de nombres de variables y estructura del código para facilitar su comprensión.
 
-# Slide 15: Referencias bibliográficas utilizadas
-# - Conjunto de datos: Breast Cancer Wisconsin Dataset de scikit-learn
-# - Pedregosa et al., Scikit-learn: Machine Learning in Python, JMLR 12, pp. 2825-2830, 2011.
-# - Documentación de scikit-learn: https://scikit-learn.org/
+9. **Consideraciones Adicionales (5 puntos)**
+   - **Reflexión sobre el Proceso**: Incluir consideraciones sobre por qué se eligieron ciertos hiperparámetros o métodos.
+   - **Adaptabilidad**: Demostrar que el código puede adaptarse fácilmente a otros conjuntos de datos o tareas similares.
+
+---
+### **Guía para la Evaluación**
+
+- **Excepcional (90-100 puntos):** El código cumple con todos los criterios de manera excelente, mostrando una comprensión profunda de cada componente y una implementación sin errores. La documentación es clara y detallada.
+  
+- **Bueno (75-89 puntos):** El código cumple con la mayoría de los criterios, con pequeñas omisiones o errores menores. La documentación es adecuada pero podría ser más detallada.
+  
+- **Satisfactorio (60-74 puntos):** El código cumple con algunos criterios básicos, pero le faltan elementos importantes o presenta errores que afectan el rendimiento del modelo. La documentación es limitada.
+  
+- **Insuficiente (<60 puntos):** El código no cumple con los criterios principales, presenta errores significativos o falta de implementación de componentes esenciales. La documentación es deficiente o inexistente.
+
+---
+### **Comentarios Adicionales**
+
+- **Originalidad y Creatividad:** Se valorará positivamente cualquier esfuerzo por mejorar el ejemplo proporcionado, como la inclusión de visualizaciones adicionales, el uso de técnicas avanzadas de preprocesamiento, o la experimentación con diferentes modelos.
+  
+- **Optimización y Eficiencia:** Se considerará la eficiencia del código, especialmente en términos de tiempo de ejecución y uso de recursos. El uso adecuado de `n_jobs=-1` para paralelizar la búsqueda de hiperparámetros es un aspecto positivo.
+
+- **Resultados y Análisis:** Además de presentar los resultados, se valorará la capacidad de interpretar y analizar los resultados obtenidos, destacando insights relevantes sobre el rendimiento del modelo y posibles mejoras.
+
+---
+Fin del archivo `neural_network_with_rubric.py`
+"""
+
+# Fin del archivo
