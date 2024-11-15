@@ -106,4 +106,74 @@ Rúbrica de Evaluación: Red Neuronal con Validación Cruzada y GridSearch en sc
 | **4. Definición de la Cuadrícula de Hiperparámetros** | - Selección relevante de hiperparámetros para la red neuronal (e.g., `hidden_layer_sizes`, `activation`, `solver`, `alpha`, `learning_rate`).<br>- Definición clara y completa de las combinaciones posibles. | 14 puntos             |
 | **5. Configuración de GridSearchCV**              | - Implementación correcta de `GridSearchCV` con el `Pipeline`.<br>- Parámetros adecuados para la validación cruzada (e.g., `cv=5`, `n_jobs=-1`).<br>- Uso correcto de `scoring` y `verbose`.     | 14 puntos             |
 | **6. Entrenamiento y Optimización del Modelo**    | - Ejecución correcta de `grid_search.fit()` en el conjunto de entrenamiento.<br>- Manejo adecuado de posibles advertencias o errores durante el entrenamiento.<br>- Tiempo de entrenamiento razonable. | 10 puntos             |
-| **7. Evaluación de Resultados**                   | - Presentación clara de los mejores parámetros encontrados.<br>- Reporte preciso de la mejor puntuación de
+| **7. Evaluación de Resultados**                   | - Presentación clara de los mejores parámetros encontrados.<br>- Reporte preciso de la mejor puntuación de validación cruzada.<br>- Evaluación detallada del modelo en el conjunto de prueba (e.g., `classification_report`, `confusion_matrix`). | 10 puntos             |
+| **8. Documentación y Claridad del Código**        | - Código bien estructurado y comentado.<br>- Uso adecuado de nombres de variables y funciones.<br>- Claridad en la presentación de resultados y explicaciones.                              | 5 puntos              |
+| **9. Consideraciones Adicionales**                | - Inclusión de consideraciones sobre preprocesamiento, selección de hiperparámetros, y evaluación.<br>- Adaptabilidad del código a otros conjuntos de datos.                                | 5 puntos              |
+| **Total**                                          |                                                                                                                                                                                              | **100 puntos**        |
+
+---
+### **Descripción de los Criterios**
+
+1. **Carga y Exploración de Datos (14 puntos)**
+   - **Importación de Datos**: Verificar que el conjunto de datos se carga correctamente utilizando `load_iris()` u otro método adecuado.
+   - **División de Datos**: Asegurarse de que los datos se dividen correctamente en conjuntos de entrenamiento y prueba utilizando `train_test_split`, con una proporción adecuada (e.g., 80-20) y estratificación para mantener la distribución de clases.
+   - **Asignación de Variables**: Confirmar que las variables independientes (`X`) y la variable dependiente (`y`) están correctamente asignadas.
+
+2. **Preprocesamiento de Datos (14 puntos)**
+   - **Estandarización**: Uso correcto de `StandardScaler` para estandarizar las características.
+   - **Integración en Pipeline**: Verificar que el escalado se integra adecuadamente en un `Pipeline` para garantizar que se aplique correctamente durante la validación cruzada.
+
+3. **Construcción del Pipeline (14 puntos)**
+   - **Componentes del Pipeline**: Asegurarse de que el `Pipeline` incluye tanto el escalador como el clasificador de red neuronal (`MLPClassifier`).
+   - **Configuración Inicial**: Verificar que `MLPClassifier` está configurado con parámetros iniciales razonables, como `max_iter`, `random_state`, y `early_stopping`.
+
+4. **Definición de la Cuadrícula de Hiperparámetros (14 puntos)**
+   - **Selección de Hiperparámetros**: Evaluar la relevancia de los hiperparámetros seleccionados para la optimización.
+   - **Combinaciones de Parámetros**: Comprobar que las combinaciones de hiperparámetros son exhaustivas y pertinentes para mejorar el rendimiento del modelo, evitando configuraciones que dificulten la convergencia.
+
+5. **Configuración de GridSearchCV (14 puntos)**
+   - **Implementación Correcta**: Confirmar que `GridSearchCV` está configurado correctamente con el `Pipeline`, `param_grid`, y otros parámetros como `cv=5`, `n_jobs=-1`, `scoring='accuracy'`, y `verbose=2`.
+   - **Optimización Eficiente**: Asegurar que se utilizan recursos de manera eficiente (e.g., `n_jobs=-1` para utilizar todos los núcleos disponibles).
+
+6. **Entrenamiento y Optimización del Modelo (10 puntos)**
+   - **Ejecución del Entrenamiento**: Verificar que el entrenamiento del modelo se realiza sin errores y que el proceso es eficiente.
+   - **Manejo de Errores**: Comprobar que el código maneja adecuadamente posibles advertencias o errores durante el entrenamiento, como la no convergencia.
+
+7. **Evaluación de Resultados (10 puntos)**
+   - **Mejores Parámetros**: Presentar claramente los mejores parámetros encontrados por `GridSearchCV`.
+   - **Puntuación de Validación Cruzada**: Reportar la mejor puntuación obtenida durante la validación cruzada.
+   - **Evaluación en Conjunto de Prueba**: Incluir un reporte de clasificación y una matriz de confusión para evaluar el rendimiento final del modelo.
+
+8. **Documentación y Claridad del Código (5 puntos)**
+   - **Comentarios y Explicaciones**: El código debe estar bien comentado, explicando cada sección y los pasos realizados.
+   - **Legibilidad**: Uso adecuado de nombres de variables y estructura del código para facilitar su comprensión.
+
+9. **Consideraciones Adicionales (5 puntos)**
+   - **Reflexión sobre el Proceso**: Incluir consideraciones sobre por qué se eligieron ciertos hiperparámetros o métodos.
+   - **Adaptabilidad**: Demostrar que el código puede adaptarse fácilmente a otros conjuntos de datos o tareas similares.
+
+---
+### **Guía para la Evaluación**
+
+- **Excepcional (90-100 puntos):** El código cumple con todos los criterios de manera excelente, mostrando una comprensión profunda de cada componente y una implementación sin errores. La documentación es clara y detallada.
+  
+- **Bueno (75-89 puntos):** El código cumple con la mayoría de los criterios, con pequeñas omisiones o errores menores. La documentación es adecuada pero podría ser más detallada.
+  
+- **Satisfactorio (60-74 puntos):** El código cumple con algunos criterios básicos, pero le faltan elementos importantes o presenta errores que afectan el rendimiento del modelo. La documentación es limitada.
+  
+- **Insuficiente (<60 puntos):** El código no cumple con los criterios principales, presenta errores significativos o falta de implementación de componentes esenciales. La documentación es deficiente o inexistente.
+
+---
+### **Comentarios Adicionales**
+
+- **Originalidad y Creatividad:** Se valorará positivamente cualquier esfuerzo por mejorar el ejemplo proporcionado, como la inclusión de visualizaciones adicionales, el uso de técnicas avanzadas de preprocesamiento, o la experimentación con diferentes modelos.
+  
+- **Optimización y Eficiencia:** Se considerará la eficiencia del código, especialmente en términos de tiempo de ejecución y uso de recursos. El uso adecuado de `n_jobs=-1` para paralelizar la búsqueda de hiperparámetros es un aspecto positivo.
+
+- **Resultados y Análisis:** Además de presentar los resultados, se valorará la capacidad de interpretar y analizar los resultados obtenidos, destacando insights relevantes sobre el rendimiento del modelo y posibles mejoras.
+
+---
+Fin del archivo `neural_network_with_rubric.py`
+"""
+
+# Fin del archivo
