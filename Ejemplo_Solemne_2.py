@@ -15,6 +15,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.exceptions import ConvergenceWarning
 import warnings
+import pdfkit
 
 def main():
     # Ignorar las advertencias de convergencia para mantener la salida limpia
@@ -177,3 +178,11 @@ Fin del archivo `neural_network_with_rubric.py`
 """
 
 # Fin del archivo
+
+def save_as_pdf(input_path, output_path):
+   pdfkit.from_file(input_path, output_path)
+
+if __name__ == "__main__":
+   input_path = '/Users/ccorreai/Documents/GitHub/Redes-Neuronales/Ejemplo_Solemne_2.py'
+   output_path = '/Users/ccorreai/Documents/GitHub/Redes-Neuronales/Ejemplo_Solemne_2.pdf'
+   save_as_pdf(input_path, output_path)
