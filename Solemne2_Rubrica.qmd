@@ -1,0 +1,112 @@
+---
+title: "Informe de Red Neuronal con Validación Cruzada y GridSearch en scikit-learn"
+author: "Carlos Correai"
+date: "`r Sys.Date()`"
+format: pdf
+execute:
+  echo: true
+  warning: false
+  error: false
+---
+
+# Introducción
+
+Este informe detalla la implementación de una red neuronal utilizando **scikit-learn**, con validación cruzada y **GridSearchCV** para la optimización de hiperparámetros. Se incluye una rúbrica de evaluación para medir el cumplimiento de los criterios esenciales en este proyecto.
+
+# Script de Python
+
+A continuación se presenta el script utilizado para entrenar y evaluar el modelo de red neuronal.
+
+```{python}
+# Importar las librerías necesarias
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.exceptions import ConvergenceWarning
+import warnings
+import pdfkit
+
+def save_as_pdf(input_path, output_path):
+    config = pdfkit.configuration(wkhtmltopdf='/opt/homebrew/bin/wkhtmltopdf')
+    pdfkit.from_file(input_path, output_path, configuration=config)
+
+def main():
+    # Ignorar las advertencias de convergencia para mantener la salida limpia
+    warnings.filterwarnings("ignore", category=ConvergenceWarning)
+
+    # Cargar el conjunto de datos Iris
+    iris = load_iris()
+    X = iris.data
+    y = iris.target
+
+    # Dividir los datos en conjunto de entrenamiento y prueba con estratificación
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
+
+    # Crear un pipeline que estandariza los datos y entrena la red neuronal
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),
+        ('mlp', MLPClassifier(max_iter=1000, random_state=42, early_stopping=True))
+    ])
+
+    # Definir la cuadrícula de hiperparámetros para buscar
+    param_grid = {
+        'mlp__hidden_layer_sizes': [(50,), (100,), (50, 50)],
+        'mlp__activation': ['tanh', 'relu'],
+        'mlp__solver': ['adam'],  # 'adam' tiende a converger mejor que 'sgd' en muchos casos
+        'mlp__alpha': [0.0001, 0.001],
+        'mlp__learning_rate': ['adaptive'],
+        'mlp__learning_rate_init': [0.001, 0.01],  # Tasa de aprendizaje inicial
+    }
+
+    # Configurar la búsqueda en cuadrícula con validación cruzada de 5 pliegues
+    grid_search = GridSearchCV(
+        estimator=pipeline,
+        param_grid=param_grid,
+        cv=5,  # Número de pliegues
+        n_jobs=-1,
+        scoring='accuracy',
+        verbose=2,
+        return_train_score=True
+    )
+
+    # Entrenar el modelo usando GridSearchCV
+    grid_search.fit(X_train, y_train)
+
+    # Mostrar los mejores parámetros encontrados
+    print("\nMejores parámetros encontrados:")
+    print(grid_search.best_params_)
+
+    # Mostrar la mejor puntuación de validación cruzada
+    print(f"\nMejor precisión en validación cruzada: {grid_search.best_score_:.4f}")
+
+    # Obtener todos los resultados de la búsqueda y mostrarlos como DataFrame ordenado
+    results = pd.DataFrame(grid_search.cv_results_)
+    results_sorted = results.sort_values(by='mean_test_score', ascending=False)
+    print("\nResultados de la validación cruzada para cada combinación de hiperparámetros:")
+    print(results_sorted[['mean_test_score', 'std_test_score', 'params']].to_string(index=False))
+
+    # Evaluar el mejor modelo en el conjunto de prueba
+    best_model = grid_search.best_estimator_
+    y_pred = best_model.predict(X_test)
+
+    print("\nReporte de clasificación en el conjunto de prueba:")
+    print(classification_report(y_test, y_pred))
+
+    print("Matriz de confusión en el conjunto de prueba:")
+    print(confusion_matrix(y_test, y_pred))
+
+    # Evaluar el modelo con validación cruzada en el conjunto completo
+    cv_scores = cross_val_score(best_model, X, y, cv=5, scoring='accuracy')
+    print("\nValidación cruzada adicional con 5 pliegues en todo el conjunto de datos:")
+    print(f"Precisión por pliegue: {cv_scores}")
+    print(f"Precisión Media: {cv_scores.mean():.4f} (Desviación Estándar: {cv_scores.std():.4f})")
+
+if __name__ == "__main__":
+    main()

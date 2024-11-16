@@ -1,4 +1,5 @@
 
+
 # Importar las librerías necesarias
 import numpy as np
 import pandas as pd
@@ -10,11 +11,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.exceptions import ConvergenceWarning
 import warnings
-import pdfkit
 
-def save_as_pdf(input_path, output_path):
-    config = pdfkit.configuration(wkhtmltopdf='/opt/homebrew/bin/wkhtmltopdf')
-    pdfkit.from_file(input_path, output_path, configuration=config)
 
 def main():
     # Ignorar las advertencias de convergencia para mantener la salida limpia
@@ -175,5 +172,3 @@ Rúbrica de Evaluación: Red Neuronal con Validación Cruzada y GridSearch en sc
 ---
 Fin del archivo `neural_network_with_rubric.py`
 """
-
-# Fin del archivo
